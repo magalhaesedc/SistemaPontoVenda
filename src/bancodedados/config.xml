@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><conexao>
+    <usuario>admin</usuario>
+    <senha>admin</senha>
+    <banco>pontovenda</banco>
+    <servidor>localhost:3306</servidor> 
+</conexao>
