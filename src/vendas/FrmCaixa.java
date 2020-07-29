@@ -27,15 +27,18 @@ import produtos.FrmListaProdutos;
  * @author Power Arts
  */
 public class FrmCaixa extends javax.swing.JInternalFrame {
-    
+
     private String codigo = null;
-    
+    private int parcelas = -1;
+    private double entrada = -1;
+
     /**
      * Creates new form FrmCaixa
      */
     public FrmCaixa() {
         initComponents();
         limparCampos();
+        preencherCaixaSelecao(bancoClientes.listarClientes(""));
         setarCodigo();
         FrmCaixa.tabelaCaixa.getTableHeader().setDefaultRenderer(new EstiloTabelaHeader());
         FrmCaixa.tabelaCaixa.setDefaultRenderer(Object.class, new EstiloTabelaRenderer());
@@ -68,15 +71,16 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
         cp_recebido.setText("");
         cp_troco.setText("");
         cp_total.setText("0,00");
+        cp_clientes.setSelectedIndex(0);
         setarData();
+        parcelas = -1;
+        entrada = -1;
 
         if (bancoVendas.verificarExisteRegistro()) {
             setarCodigoVenda(bancoVendas.buscarMaiorNumeroVenda());
         } else {
             cp_numeroVenda.setText("00000000000001");
         }
-
-        preencherCaixaSelecao(bancoClientes.listarClientes(""));
 
     }
 
@@ -104,7 +108,7 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
             public void itemStateChanged(ItemEvent ie) {
                 if (cp_clientes.getSelectedItem().toString().contains("- CLI")) {
                     String campo = cp_clientes.getSelectedItem().toString();
-                    codigo = campo.substring((campo.length()-1)-6, campo.length());
+                    codigo = campo.substring((campo.length() - 1) - 6, campo.length());
                 } else {
                     codigo = null;
                 }
@@ -128,6 +132,30 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             System.err.println("Erro: " + ex);
         }
+    }
+
+    private double realizarCalculoTroco() {
+
+        double valor = -1;
+
+        if (tabelaCaixa.getRowCount() < 1) {
+            JOptionPane.showMessageDialog(this, "Nenhum produto foi adicionado", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else if (cp_recebido.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Insira o valor recebido.");
+        } else {
+            double recebido = Double.parseDouble(cp_recebido.getText().replace(",", "."));
+            double total = Double.parseDouble(cp_total.getText().replace(",", "."));
+
+            if (recebido < total) {
+                JOptionPane.showMessageDialog(this, "Valor recebido não pode ser menor que o valor total");
+            } else {
+                valor = recebido - total;
+                parcelas = 1;
+                entrada = valor;
+                this.cp_troco.setText(String.format("%.2f", valor));
+            }
+        }
+        return valor;
     }
 
     /**
@@ -161,6 +189,7 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
         bt_realizarVenda = new javax.swing.JButton();
         bt_eliminar = new javax.swing.JButton();
         bt_cancelar = new javax.swing.JButton();
+        pagamento = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaCaixa = new javax.swing.JTable();
@@ -358,6 +387,20 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
             }
         });
 
+        pagamento.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        pagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/cancela2.png"))); // NOI18N
+        pagamento.setBorder(null);
+        pagamento.setContentAreaFilled(false);
+        pagamento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        pagamento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pagamento.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/cancela1.png"))); // NOI18N
+        pagamento.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        pagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pagamentoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -366,6 +409,10 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
             .addComponent(bt_realizarVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(bt_eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(bt_cancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -376,8 +423,10 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
                 .addComponent(bt_realizarVenda)
                 .addGap(18, 18, 18)
                 .addComponent(bt_eliminar)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bt_cancelar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pagamento)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -491,7 +540,6 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cp_totalActionPerformed
 
     private void bt_produtosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_produtosActionPerformed
-
         if (estaFechado(formListarProdutos)) {
             formListarProdutos = new FrmListaProdutos();
             instanciarTelas.add(formListarProdutos).setLocation(180, 20);
@@ -501,41 +549,34 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
             formListarProdutos.toFront();
             formListarProdutos.show();
         }
-
     }//GEN-LAST:event_bt_produtosActionPerformed
 
     private void bt_realizarCalculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_realizarCalculoActionPerformed
-        if (tabelaCaixa.getRowCount() < 1) {
-            JOptionPane.showMessageDialog(this, "Nenhum produto foi adicionado", "Erro", JOptionPane.ERROR_MESSAGE);
-        } else if (cp_recebido.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Insira o valor recebido.");
-        } else {
-            double recebido = Double.parseDouble(cp_recebido.getText().replace(",", "."));
-            double total = Double.parseDouble(cp_total.getText().replace(",", "."));
-
-            if (recebido < total) {
-                JOptionPane.showMessageDialog(this, "Valor recebido não pode ser menor que o valor total");
-            } else {
-                this.cp_troco.setText(String.format("%.2f", recebido - total));
-            }
-        }
+        realizarCalculoTroco();
     }//GEN-LAST:event_bt_realizarCalculoActionPerformed
 
     private void bt_realizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_realizarVendaActionPerformed
 
         if (tabelaCaixa.getRowCount() < 1) {
             JOptionPane.showMessageDialog(this, "Nenhum produto foi adicionado.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else if (codigo == null) {
+            JOptionPane.showMessageDialog(this, "Selecione um cliente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            Venda v = new Venda();
-            v.setNumero_ven(cp_numeroVenda.getText());
-            v.setTotal_ven(cp_total.getText());
-            v.setData_ven(cp_data.getText());
-            String msg = bancoVendas.registrarVenda(v);
-            if (msg.equals("Registrado com sucesso!")) {
-                limparCampos();
-                JOptionPane.showMessageDialog(this, "Venda Efetuada.");
+            if (cp_troco.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Para continuar, realize o calculo do troco", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                Venda v = new Venda();
+                v.setNumero_ven(cp_numeroVenda.getText());
+                v.setTotal_ven(cp_total.getText());
+                v.setData_ven(cp_data.getText());
+                String msg = bancoVendas.registrarVenda(v);
+                if (msg.equals("Registrado com sucesso!")) {
+                    limparCampos();
+                    JOptionPane.showMessageDialog(this, "Venda Efetuada.");
+                }
             }
         }
+
     }//GEN-LAST:event_bt_realizarVendaActionPerformed
 
     private void bt_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_eliminarActionPerformed
@@ -560,6 +601,17 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_bt_cancelarActionPerformed
 
+    private void pagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagamentoActionPerformed
+        if (estaFechado(formFormaPag)) {
+            formFormaPag = new FrmFormaPag();
+            instanciarTelas.add(formFormaPag).setLocation(180, 20);
+            formFormaPag.show();
+        } else {
+            JOptionPane.showMessageDialog(this, "A janela já está aberto!!");
+            formFormaPag.toFront();
+            formFormaPag.show();
+        }
+    }//GEN-LAST:event_pagamentoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_cancelar;
@@ -588,10 +640,12 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton pagamento;
     public static javax.swing.JTable tabelaCaixa;
     // End of variables declaration//GEN-END:variables
 
     FrmListaProdutos formListarProdutos;
+    FrmFormaPag formFormaPag;
     ControleMetodos controleMetodos = new ControleMetodos();
     BancoVendas bancoVendas = new BancoVendas();
     BancoClientes bancoClientes = new BancoClientes();
