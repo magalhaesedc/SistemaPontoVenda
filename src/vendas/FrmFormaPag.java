@@ -77,10 +77,10 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        bt_excluirTudo = new javax.swing.JButton();
-        bt_registrar = new javax.swing.JButton();
-        bt_atualizar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        bt_sair = new javax.swing.JButton();
+        bt_calcular = new javax.swing.JButton();
+        bt_finalizarPagamento = new javax.swing.JButton();
+        lb_informacoesPagamento = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         cp_tipo2 = new org.bolivia.combo.SComboBoxBlue();
         cp_recebido2 = new app.bolivia.swing.JCTextField();
@@ -107,48 +107,48 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
         jPanel6.setOpaque(false);
         jPanel6.setRequestFocusEnabled(false);
 
-        bt_excluirTudo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        bt_excluirTudo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/apagarT1.png"))); // NOI18N
-        bt_excluirTudo.setText("Sair");
-        bt_excluirTudo.setBorder(null);
-        bt_excluirTudo.setContentAreaFilled(false);
-        bt_excluirTudo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bt_excluirTudo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        bt_excluirTudo.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/apagarT.png"))); // NOI18N
-        bt_excluirTudo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        bt_excluirTudo.addActionListener(new java.awt.event.ActionListener() {
+        bt_sair.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bt_sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/sair2.png"))); // NOI18N
+        bt_sair.setText("Sair");
+        bt_sair.setBorder(null);
+        bt_sair.setContentAreaFilled(false);
+        bt_sair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_sair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_sair.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/sair1.png"))); // NOI18N
+        bt_sair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bt_sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_excluirTudoActionPerformed(evt);
+                bt_sairActionPerformed(evt);
             }
         });
 
-        bt_registrar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        bt_registrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/regis2.png"))); // NOI18N
-        bt_registrar.setText("Calcular");
-        bt_registrar.setBorder(null);
-        bt_registrar.setContentAreaFilled(false);
-        bt_registrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bt_registrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        bt_registrar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/regis1.png"))); // NOI18N
-        bt_registrar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        bt_registrar.addActionListener(new java.awt.event.ActionListener() {
+        bt_calcular.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bt_calcular.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/calcularpagamento2.png"))); // NOI18N
+        bt_calcular.setText("Calcular");
+        bt_calcular.setBorder(null);
+        bt_calcular.setContentAreaFilled(false);
+        bt_calcular.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_calcular.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_calcular.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/calcularpagamento1.png"))); // NOI18N
+        bt_calcular.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bt_calcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_registrarActionPerformed(evt);
+                bt_calcularActionPerformed(evt);
             }
         });
 
-        bt_atualizar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        bt_atualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/editar1.png"))); // NOI18N
-        bt_atualizar.setText("Finalizar Pagamento");
-        bt_atualizar.setBorder(null);
-        bt_atualizar.setContentAreaFilled(false);
-        bt_atualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bt_atualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        bt_atualizar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/editar.png"))); // NOI18N
-        bt_atualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        bt_atualizar.addActionListener(new java.awt.event.ActionListener() {
+        bt_finalizarPagamento.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bt_finalizarPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/finalizarpagamento2.png"))); // NOI18N
+        bt_finalizarPagamento.setText("Finalizar Pagamento");
+        bt_finalizarPagamento.setBorder(null);
+        bt_finalizarPagamento.setContentAreaFilled(false);
+        bt_finalizarPagamento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_finalizarPagamento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_finalizarPagamento.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/finalizarpagamento1.png"))); // NOI18N
+        bt_finalizarPagamento.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bt_finalizarPagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_atualizarActionPerformed(evt);
+                bt_finalizarPagamentoActionPerformed(evt);
             }
         });
 
@@ -158,28 +158,28 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
-                .addComponent(bt_registrar)
+                .addComponent(bt_calcular)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
-                .addComponent(bt_atualizar)
+                .addComponent(bt_finalizarPagamento)
                 .addGap(121, 121, 121)
-                .addComponent(bt_excluirTudo)
+                .addComponent(bt_sair)
                 .addGap(81, 81, 81))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bt_registrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(bt_atualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(bt_excluirTudo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bt_calcular, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bt_finalizarPagamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bt_sair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 700, 130));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Informações do Pagamento");
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 680, -1));
+        lb_informacoesPagamento.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lb_informacoesPagamento.setForeground(new java.awt.Color(255, 0, 0));
+        lb_informacoesPagamento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_informacoesPagamento.setText("Informações do Pagamento");
+        lb_informacoesPagamento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel3.add(lb_informacoesPagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 680, -1));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "A VISTA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         jPanel4.setPreferredSize(new java.awt.Dimension(735, 142));
@@ -265,9 +265,8 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -295,25 +294,33 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cp_recebido3ActionPerformed
 
-    private void bt_excluirTudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_excluirTudoActionPerformed
-       
+    private void bt_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_sairActionPerformed
         
-    }//GEN-LAST:event_bt_excluirTudoActionPerformed
+        dispose();
+        
+    }//GEN-LAST:event_bt_sairActionPerformed
 
-    private void bt_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_registrarActionPerformed
+    private void bt_calcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_calcularActionPerformed
         
+        if(cp_avista.isSelected()){
+            lb_informacoesPagamento.setText("Pagamento Avista");
+        }else if(cp_parcelado.isSelected()){
+            lb_informacoesPagamento.setText("Pagamento Parcelado");
+        }else{
+            JOptionPane.showMessageDialog(this, "Por favor, informe se o pagamento será AVISTA ou PARCELADO.");
+        }
         
-    }//GEN-LAST:event_bt_registrarActionPerformed
+    }//GEN-LAST:event_bt_calcularActionPerformed
 
-    private void bt_atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_atualizarActionPerformed
+    private void bt_finalizarPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_finalizarPagamentoActionPerformed
         
-    }//GEN-LAST:event_bt_atualizarActionPerformed
+    }//GEN-LAST:event_bt_finalizarPagamentoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_atualizar;
-    private javax.swing.JButton bt_excluirTudo;
-    private javax.swing.JButton bt_registrar;
+    private javax.swing.JButton bt_calcular;
+    private javax.swing.JButton bt_finalizarPagamento;
+    private javax.swing.JButton bt_sair;
     private javax.swing.JRadioButton cp_avista;
     private javax.swing.JRadioButton cp_parcelado;
     public static app.bolivia.swing.JCTextField cp_recebido2;
@@ -322,7 +329,6 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
     private org.bolivia.combo.SComboBoxBlue cp_tipo2;
     private org.bolivia.combo.SComboBoxBlue cp_tipo3;
     private javax.swing.ButtonGroup gp_formaPagamento;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JPanel jPanel1;
@@ -330,5 +336,6 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JLabel lb_informacoesPagamento;
     // End of variables declaration//GEN-END:variables
 }

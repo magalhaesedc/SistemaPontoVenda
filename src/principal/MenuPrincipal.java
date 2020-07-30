@@ -34,7 +34,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form MenuPrincipal
      */
-    
     class horas implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -45,7 +44,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             lb_hora.setText(String.format(formato.format(sistemaHora), now));
         }
     }
-    
+
     public MenuPrincipal() {
         initComponents();
         iconeTitulo();
@@ -64,13 +63,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
         return fechado;
     }
-    
+
     public void iconeTitulo() {
         Toolkit kit = Toolkit.getDefaultToolkit();
-        Image imagem = kit.getImage(getClass().getResource("/imagens/principal/logomenor.png"));  
+        Image imagem = kit.getImage(getClass().getResource("/imagens/principal/logomenor.png"));
         setIconImage(imagem);
     }
-    
+
     public void perguntarSair() {
         this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
@@ -311,8 +310,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         if (estaFechado(formProduto)) {
             formProduto = new FrmProdutos();
-            instanciarTelas.add(formProduto).setLocation(160, 20);
+            int lDesk = instanciarTelas.getWidth();
+            int aDesk = instanciarTelas.getHeight();
+            int lForm = formProduto.getWidth();
+            int aForm = formProduto.getHeight();
+            instanciarTelas.add(formProduto).setLocation(lDesk / 2 - lForm / 2, aDesk / 2 - aForm / 2);
             formProduto.show();
+
         } else {
             JOptionPane.showMessageDialog(this, "A Janela já está aberto!!");
             formProduto.toFront();
@@ -322,10 +326,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void bt_vendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_vendasActionPerformed
         // TODO add your handling code here:
-        
+
         if (estaFechado(formVendas)) {
             formVendas = new FrmVendas();
-            instanciarTelas.add(formVendas).setLocation(150, 20);
+            int lDesk = instanciarTelas.getWidth();
+            int aDesk = instanciarTelas.getHeight();
+            int lForm = formVendas.getWidth();
+            int aForm = formVendas.getHeight();
+            instanciarTelas.add(formVendas).setLocation(lDesk / 2 - lForm / 2, aDesk / 2 - aForm / 2);
             formVendas.show();
         } else {
             JOptionPane.showMessageDialog(this, "A Janela já está aberto!!");
@@ -335,14 +343,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_vendasActionPerformed
 
     private void bt_relatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_relatoriosActionPerformed
-     
+
     }//GEN-LAST:event_bt_relatoriosActionPerformed
 
     private void bt_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_clientesActionPerformed
-        
+
         if (estaFechado(formCliente)) {
             formCliente = new FrmClientes();
-            instanciarTelas.add(formCliente).setLocation(160, 20);
+            int lDesk = instanciarTelas.getWidth();
+            int aDesk = instanciarTelas.getHeight();
+            int lForm = formCliente.getWidth();
+            int aForm = formCliente.getHeight();
+            instanciarTelas.add(formCliente).setLocation(lDesk / 2 - lForm / 2, aDesk / 2 - aForm / 2);
             formCliente.show();
         } else {
             JOptionPane.showMessageDialog(this, "A Janela já está aberto!!");
@@ -368,9 +380,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Date sistemaData = new Date();
         SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
         lb_data.setText(dataFormatada.format(sistemaData));
-        
+
         //HORA DO SISTEMA
-        Timer hr = new Timer (100, new MenuPrincipal.horas());
+        Timer hr = new Timer(100, new MenuPrincipal.horas());
         hr.start();
     }//GEN-LAST:event_formWindowOpened
 
@@ -378,7 +390,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (estaFechado(formUsuarios)) {
             formUsuarios = new FrmUsuarios();
-            instanciarTelas.add(formUsuarios).setLocation(160, 20);
+            int lDesk = instanciarTelas.getWidth();
+            int aDesk = instanciarTelas.getHeight();
+            int lForm = formUsuarios.getWidth();
+            int aForm = formUsuarios.getHeight();
+            instanciarTelas.add(formUsuarios).setLocation(lDesk / 2 - lForm / 2, aDesk / 2 - aForm / 2);
             formUsuarios.show();
         } else {
             JOptionPane.showMessageDialog(this, "A Janela já está aberto!!");
@@ -391,7 +407,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (estaFechado(formCaixa)) {
             formCaixa = new FrmCaixa();
-            instanciarTelas.add(formCaixa).setLocation(160, 20);
+            int lDesk = instanciarTelas.getWidth();
+            int aDesk = instanciarTelas.getHeight();
+            int lForm = formCaixa.getWidth();
+            int aForm = formCaixa.getHeight();
+            instanciarTelas.add(formCaixa).setLocation(lDesk / 2 - lForm / 2, aDesk / 2 - aForm / 2);
             formCaixa.show();
         } else {
             JOptionPane.showMessageDialog(this, "A Janela já está aberto!!");

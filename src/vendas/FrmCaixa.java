@@ -10,6 +10,7 @@ import bancodedados.BancoVendas;
 import controle.ControleMetodos;
 import controle.EstiloTabelaHeader;
 import controle.EstiloTabelaRenderer;
+import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.ResultSet;
@@ -189,7 +190,7 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
         bt_realizarVenda = new javax.swing.JButton();
         bt_eliminar = new javax.swing.JButton();
         bt_cancelar = new javax.swing.JButton();
-        pagamento = new javax.swing.JButton();
+        bt_pagamento = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaCaixa = new javax.swing.JTable();
@@ -387,17 +388,17 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
             }
         });
 
-        pagamento.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        pagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/cancela2.png"))); // NOI18N
-        pagamento.setBorder(null);
-        pagamento.setContentAreaFilled(false);
-        pagamento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pagamento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        pagamento.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/cancela1.png"))); // NOI18N
-        pagamento.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        pagamento.addActionListener(new java.awt.event.ActionListener() {
+        bt_pagamento.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bt_pagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/pagamento2.png"))); // NOI18N
+        bt_pagamento.setBorder(null);
+        bt_pagamento.setContentAreaFilled(false);
+        bt_pagamento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_pagamento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_pagamento.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/pagamento1.png"))); // NOI18N
+        bt_pagamento.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bt_pagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pagamentoActionPerformed(evt);
+                bt_pagamentoActionPerformed(evt);
             }
         });
 
@@ -411,7 +412,7 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
             .addComponent(bt_cancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bt_pagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -426,7 +427,7 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bt_cancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pagamento)
+                .addComponent(bt_pagamento)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -542,7 +543,11 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
     private void bt_produtosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_produtosActionPerformed
         if (estaFechado(formListarProdutos)) {
             formListarProdutos = new FrmListaProdutos();
-            instanciarTelas.add(formListarProdutos).setLocation(180, 20);
+            int lDesk = instanciarTelas.getWidth();
+            int aDesk = instanciarTelas.getHeight();
+            int lForm = formListarProdutos.getWidth();
+            int aForm = formListarProdutos.getHeight();
+            instanciarTelas.add(formListarProdutos).setLocation(lDesk / 2 - lForm / 2, aDesk / 2 - aForm / 2);
             formListarProdutos.show();
         } else {
             JOptionPane.showMessageDialog(this, "A janela já está aberto!!");
@@ -601,21 +606,26 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_bt_cancelarActionPerformed
 
-    private void pagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagamentoActionPerformed
+    private void bt_pagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_pagamentoActionPerformed
         if (estaFechado(formFormaPag)) {
             formFormaPag = new FrmFormaPag();
-            instanciarTelas.add(formFormaPag).setLocation(180, 20);
+            int lDesk = instanciarTelas.getWidth();
+            int aDesk = instanciarTelas.getHeight();
+            int lForm = formFormaPag.getWidth();
+            int aForm = formFormaPag.getHeight();
+            instanciarTelas.add(formFormaPag).setLocation(lDesk / 2 - lForm / 2, aDesk / 2 - aForm / 2);
             formFormaPag.show();
         } else {
             JOptionPane.showMessageDialog(this, "A janela já está aberto!!");
             formFormaPag.toFront();
             formFormaPag.show();
         }
-    }//GEN-LAST:event_pagamentoActionPerformed
+    }//GEN-LAST:event_bt_pagamentoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_cancelar;
     private javax.swing.JButton bt_eliminar;
+    private javax.swing.JButton bt_pagamento;
     private javax.swing.JButton bt_produtos;
     private javax.swing.JButton bt_realizarCalculo;
     private javax.swing.JButton bt_realizarVenda;
@@ -640,7 +650,6 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton pagamento;
     public static javax.swing.JTable tabelaCaixa;
     // End of variables declaration//GEN-END:variables
 

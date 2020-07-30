@@ -42,10 +42,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="jPanel3" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -115,31 +113,31 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                          <Component id="bt_registrar" min="-2" max="-2" attributes="0"/>
+                          <Component id="bt_calcular" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="125" max="32767" attributes="0"/>
-                          <Component id="bt_atualizar" min="-2" max="-2" attributes="0"/>
+                          <Component id="bt_finalizarPagamento" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-                          <Component id="bt_excluirTudo" min="-2" max="-2" attributes="0"/>
+                          <Component id="bt_sair" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="bt_registrar" alignment="1" max="32767" attributes="0"/>
-                      <Component id="bt_atualizar" alignment="1" max="32767" attributes="0"/>
-                      <Component id="bt_excluirTudo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="bt_calcular" alignment="1" max="32767" attributes="0"/>
+                      <Component id="bt_finalizarPagamento" alignment="1" max="32767" attributes="0"/>
+                      <Component id="bt_sair" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="bt_excluirTudo">
+                <Component class="javax.swing.JButton" name="bt_sair">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="12" style="1"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/imagens/produtos/apagarT1.png"/>
+                      <Image iconType="3" name="/imagens/vendas/sair2.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Sair"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -151,21 +149,21 @@
                     </Property>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/imagens/produtos/apagarT.png"/>
+                      <Image iconType="3" name="/imagens/vendas/sair1.png"/>
                     </Property>
                     <Property name="verticalTextPosition" type="int" value="3"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_excluirTudoActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_sairActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="bt_registrar">
+                <Component class="javax.swing.JButton" name="bt_calcular">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="12" style="1"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/imagens/produtos/regis2.png"/>
+                      <Image iconType="3" name="/imagens/vendas/calcularpagamento2.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Calcular"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -177,21 +175,21 @@
                     </Property>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/imagens/produtos/regis1.png"/>
+                      <Image iconType="3" name="/imagens/vendas/calcularpagamento1.png"/>
                     </Property>
                     <Property name="verticalTextPosition" type="int" value="3"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_registrarActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_calcularActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="bt_atualizar">
+                <Component class="javax.swing.JButton" name="bt_finalizarPagamento">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="12" style="1"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/imagens/produtos/editar1.png"/>
+                      <Image iconType="3" name="/imagens/vendas/finalizarpagamento2.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Finalizar Pagamento"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -203,17 +201,17 @@
                     </Property>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                     <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/imagens/produtos/editar.png"/>
+                      <Image iconType="3" name="/imagens/vendas/finalizarpagamento1.png"/>
                     </Property>
                     <Property name="verticalTextPosition" type="int" value="3"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_atualizarActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_finalizarPagamentoActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="jLabel1">
+            <Component class="javax.swing.JLabel" name="lb_informacoesPagamento">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="18" style="1"/>

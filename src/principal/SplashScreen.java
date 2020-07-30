@@ -30,7 +30,7 @@ public class SplashScreen extends javax.swing.JFrame {
     void carregarBarra() {
         new Thread() {
             public void run() {
-                for (int n = 0; n < 100; n++) {
+                for (int n = 0; n < 101; n++) {
                     try {
                         sleep(30);
                         barraProgresso.setValue(n);
@@ -39,6 +39,9 @@ public class SplashScreen extends javax.swing.JFrame {
                             Connection conn = Conectar.testConexao(configuracoesBanco.getUsuario(), configuracoesBanco.getSenha(), configuracoesBanco.getBanco(), configuracoesBanco.getServidor());
                             Conectar.closeConexao(conn);
                             System.out.println("Conectado com Sucesso");
+                        }
+                        
+                        if(n == 100){
                             abrirLogin();
                         }
                     } catch (Exception e) {
@@ -49,6 +52,7 @@ public class SplashScreen extends javax.swing.JFrame {
                     }
                     lb_carregando.setText("Abrindo o Sistema...");
                 }
+                
             }
         }.start();
     }
