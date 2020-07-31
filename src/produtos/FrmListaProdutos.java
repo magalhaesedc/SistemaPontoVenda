@@ -93,8 +93,9 @@ public class FrmListaProdutos extends javax.swing.JInternalFrame {
             vendas.FrmCaixa.tabelaCaixa.setValueAt(String.format("%.2f", Math.rint(calc * 100) / 100), i, 5);
         }
         
-        vendas.FrmCaixa.cp_total.setText(String.format("%.2f", Math.rint(total * 100) / 100));
-        
+        vendas.FrmCaixa.total = total;
+        vendas.FrmCaixa.cp_total.setText(String.format("%.2f", Math.rint(vendas.FrmCaixa.total * 100) / 100));
+
     }
 
     public static boolean isNumber(String n) {
@@ -283,42 +284,45 @@ public class FrmListaProdutos extends javax.swing.JInternalFrame {
                     }
 
                     if (quantidade != null) {
-                        
+
                         boolean produtoNaoEstaAdiconado = true;
-                        
+
                         for (int i = 0; i < vendas.FrmCaixa.tabelaCaixa.getRowCount(); i++) {
-                            
+
                             String codigoVendas = vendas.FrmCaixa.tabelaCaixa.getValueAt(i, 0).toString();
 
                             if (codigoVendas.equals(codigo)) {
                                 String quantdadeAnterior = vendas.FrmCaixa.tabelaCaixa.getValueAt(i, 4).toString();
                                 int quantidadeTotal = Integer.parseInt(quantidade) + Integer.parseInt(quantdadeAnterior);
                                 vendas.FrmCaixa.tabelaCaixa.setValueAt(String.valueOf(quantidadeTotal), i, 4);
-                                
+
                                 calcularTabelaCaixa();
-                                
+
                                 vendas.FrmCaixa.cp_recebido.setText("");
                                 vendas.FrmCaixa.cp_troco.setText("");
-                                
+                                vendas.FrmCaixa.parcelas = -1;
+                                vendas.FrmCaixa.entrada = -1;
+                                vendas.FrmCaixa.formaPagamento = null;
+
                                 produtoNaoEstaAdiconado = false;
                             }
                         }
-                        
+
                         if (produtoNaoEstaAdiconado) {
 
                             produto[0] = codigo;
                             produto[1] = tipo;
                             produto[2] = nome;
-                            
+
                             double valorDouble = Double.parseDouble(valor.replace(",", "."));
                             String doubleString = String.format("%.2f", valorDouble);
-                                   
+
                             produto[3] = doubleString;
                             produto[4] = quantidade;
 
                             tabeladet.addRow(produto);
                             vendas.FrmCaixa.tabelaCaixa.setModel(tabeladet);
-                            
+
                             calcularTabelaCaixa();
 
                             vendas.FrmCaixa.cp_recebido.setText("");

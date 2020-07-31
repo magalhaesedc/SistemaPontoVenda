@@ -5,17 +5,7 @@
  */
 package vendas;
 
-import produtos.*;
-import bancodedados.BancoProdutos;
-import controle.EstiloTabelaHeader;
-import controle.EstiloTabelaRenderer;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,6 +18,9 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
      */
     public FrmFormaPag() {
         initComponents();
+        formaPagamento = null;
+        cp_valorAvista.setText(vendas.FrmCaixa.cp_total.getText());   
+        //cp_valorAvista.setText("44");   
     }
 
     public void calcularTabelaCaixa() {
@@ -47,9 +40,9 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
             total = total + calc;
             vendas.FrmCaixa.tabelaCaixa.setValueAt(String.format("%.2f", Math.rint(calc * 100) / 100), i, 5);
         }
-        
+
         vendas.FrmCaixa.cp_total.setText(String.format("%.2f", Math.rint(total * 100) / 100));
-        
+
     }
 
     public static boolean isNumber(String n) {
@@ -80,22 +73,25 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
         bt_sair = new javax.swing.JButton();
         bt_calcular = new javax.swing.JButton();
         bt_finalizarPagamento = new javax.swing.JButton();
-        lb_informacoesPagamento = new javax.swing.JLabel();
+        lb_informacoesPagamento2 = new javax.swing.JLabel();
+        lb_informacoesPagamento1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        cp_tipo2 = new org.bolivia.combo.SComboBoxBlue();
-        cp_recebido2 = new app.bolivia.swing.JCTextField();
+        cp_formaPagamentoAvista = new org.bolivia.combo.SComboBoxBlue();
+        cp_valorAvista = new app.bolivia.swing.JCTextField();
         jLabel10 = new javax.swing.JLabel();
         cp_avista = new javax.swing.JRadioButton();
         jPanel5 = new javax.swing.JPanel();
-        cp_tipo3 = new org.bolivia.combo.SComboBoxBlue();
-        cp_recebido3 = new app.bolivia.swing.JCTextField();
+        cp_formaPagamentoParcelado = new org.bolivia.combo.SComboBoxBlue();
+        cp_valorParcelado = new app.bolivia.swing.JCTextField();
         jLabel11 = new javax.swing.JLabel();
-        cp_tipo1 = new org.bolivia.combo.SComboBoxBlue();
+        cp_numeroParcelas = new org.bolivia.combo.SComboBoxBlue();
         cp_parcelado = new javax.swing.JRadioButton();
+        cp_entrada = new app.bolivia.swing.JCTextField();
+        jLabel12 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Pagamento");
-        setPreferredSize(new java.awt.Dimension(769, 493));
+        setPreferredSize(new java.awt.Dimension(769, 554));
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "INFORMAÇÕES", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
@@ -174,36 +170,43 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
 
         jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 700, 130));
 
-        lb_informacoesPagamento.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lb_informacoesPagamento.setForeground(new java.awt.Color(255, 0, 0));
-        lb_informacoesPagamento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb_informacoesPagamento.setText("Informações do Pagamento");
-        lb_informacoesPagamento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel3.add(lb_informacoesPagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 680, -1));
+        lb_informacoesPagamento2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        lb_informacoesPagamento2.setForeground(new java.awt.Color(255, 0, 0));
+        lb_informacoesPagamento2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_informacoesPagamento2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel3.add(lb_informacoesPagamento2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 700, -1));
+
+        lb_informacoesPagamento1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        lb_informacoesPagamento1.setForeground(new java.awt.Color(255, 0, 0));
+        lb_informacoesPagamento1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_informacoesPagamento1.setText("Informações do Pagamento");
+        lb_informacoesPagamento1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel3.add(lb_informacoesPagamento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 700, -1));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "A VISTA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         jPanel4.setPreferredSize(new java.awt.Dimension(735, 142));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cp_tipo2.setMaximumRowCount(5);
-        cp_tipo2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FORMA DE PAGAMENTO", "Dinheiro", "Cartão de Crédito", "Cartão de Débito" }));
-        cp_tipo2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cp_tipo2.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel4.add(cp_tipo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 250, 50));
+        cp_formaPagamentoAvista.setMaximumRowCount(5);
+        cp_formaPagamentoAvista.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FORMA DE PAGAMENTO", "Cartão de Crédito", "Cartão de Débito" }));
+        cp_formaPagamentoAvista.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cp_formaPagamentoAvista.setPreferredSize(new java.awt.Dimension(200, 50));
+        jPanel4.add(cp_formaPagamentoAvista, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 250, 50));
 
-        cp_recebido2.setBackground(new java.awt.Color(34, 102, 145));
-        cp_recebido2.setBorder(null);
-        cp_recebido2.setForeground(new java.awt.Color(255, 255, 255));
-        cp_recebido2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        cp_recebido2.setOpaque(false);
-        cp_recebido2.setPhColor(new java.awt.Color(255, 255, 255));
-        cp_recebido2.setPlaceholder("VALOR");
-        cp_recebido2.addActionListener(new java.awt.event.ActionListener() {
+        cp_valorAvista.setEditable(false);
+        cp_valorAvista.setBackground(new java.awt.Color(34, 102, 145));
+        cp_valorAvista.setBorder(null);
+        cp_valorAvista.setForeground(new java.awt.Color(255, 255, 255));
+        cp_valorAvista.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cp_valorAvista.setOpaque(false);
+        cp_valorAvista.setPhColor(new java.awt.Color(255, 255, 255));
+        cp_valorAvista.setPlaceholder("VALOR");
+        cp_valorAvista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cp_recebido2ActionPerformed(evt);
+                cp_valorAvistaActionPerformed(evt);
             }
         });
-        jPanel4.add(cp_recebido2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 120, -1));
+        jPanel4.add(cp_valorAvista, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 120, -1));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/recibi.png"))); // NOI18N
         jLabel10.setOpaque(true);
@@ -220,42 +223,60 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
         jPanel5.setPreferredSize(new java.awt.Dimension(735, 142));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cp_tipo3.setMaximumRowCount(5);
-        cp_tipo3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FORMA DE PAGAMENTO", "Dinheiro", "Cartão de Crédito", "Cartão de Débito" }));
-        cp_tipo3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cp_tipo3.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel5.add(cp_tipo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 250, 50));
+        cp_formaPagamentoParcelado.setMaximumRowCount(5);
+        cp_formaPagamentoParcelado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FORMA DE PAGAMENTO", "Dinheiro", "Cartão de Crédito", "Cartão de Débito" }));
+        cp_formaPagamentoParcelado.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cp_formaPagamentoParcelado.setPreferredSize(new java.awt.Dimension(200, 50));
+        jPanel5.add(cp_formaPagamentoParcelado, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 250, 50));
 
-        cp_recebido3.setBackground(new java.awt.Color(34, 102, 145));
-        cp_recebido3.setBorder(null);
-        cp_recebido3.setForeground(new java.awt.Color(255, 255, 255));
-        cp_recebido3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        cp_recebido3.setOpaque(false);
-        cp_recebido3.setPhColor(new java.awt.Color(255, 255, 255));
-        cp_recebido3.setPlaceholder("ENTRADA");
-        cp_recebido3.addActionListener(new java.awt.event.ActionListener() {
+        cp_valorParcelado.setBackground(new java.awt.Color(34, 102, 145));
+        cp_valorParcelado.setBorder(null);
+        cp_valorParcelado.setForeground(new java.awt.Color(255, 255, 255));
+        cp_valorParcelado.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cp_valorParcelado.setOpaque(false);
+        cp_valorParcelado.setPhColor(new java.awt.Color(255, 255, 255));
+        cp_valorParcelado.setPlaceholder("VALOR");
+        cp_valorParcelado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cp_recebido3ActionPerformed(evt);
+                cp_valorParceladoActionPerformed(evt);
             }
         });
-        jPanel5.add(cp_recebido3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 120, -1));
+        jPanel5.add(cp_valorParcelado, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 120, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/recibi.png"))); // NOI18N
         jLabel11.setOpaque(true);
         jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
 
-        cp_tipo1.setMaximumRowCount(5);
-        cp_tipo1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PARCELAS", "1 + 1X", "1 + 2X", "1 + 3X", "1 + 4X", "1 + 5X", "1 + 6X", "1 + 7X", "1 + 8X", "1 + 9X", "1 + 10X", "1 + 11X" }));
-        cp_tipo1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        cp_tipo1.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel5.add(cp_tipo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 30, 181, -1));
+        cp_numeroParcelas.setMaximumRowCount(5);
+        cp_numeroParcelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PARCELAS", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        cp_numeroParcelas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cp_numeroParcelas.setPreferredSize(new java.awt.Dimension(200, 50));
+        jPanel5.add(cp_numeroParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 181, -1));
 
         gp_formaPagamento.add(cp_parcelado);
         cp_parcelado.setContentAreaFilled(false);
         cp_parcelado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cp_parcelado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cp_parcelado.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel5.add(cp_parcelado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 50, 50));
+        jPanel5.add(cp_parcelado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 50, 120));
+
+        cp_entrada.setBackground(new java.awt.Color(34, 102, 145));
+        cp_entrada.setBorder(null);
+        cp_entrada.setForeground(new java.awt.Color(255, 255, 255));
+        cp_entrada.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cp_entrada.setOpaque(false);
+        cp_entrada.setPhColor(new java.awt.Color(255, 255, 255));
+        cp_entrada.setPlaceholder("ENTRADA");
+        cp_entrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cp_entradaActionPerformed(evt);
+            }
+        });
+        jPanel5.add(cp_entrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 120, -1));
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/recibi.png"))); // NOI18N
+        jLabel12.setOpaque(true);
+        jPanel5.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -275,7 +296,7 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -286,35 +307,61 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cp_recebido2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cp_recebido2ActionPerformed
+    private void cp_valorAvistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cp_valorAvistaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cp_recebido2ActionPerformed
+    }//GEN-LAST:event_cp_valorAvistaActionPerformed
 
-    private void cp_recebido3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cp_recebido3ActionPerformed
+    private void cp_valorParceladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cp_valorParceladoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cp_recebido3ActionPerformed
+    }//GEN-LAST:event_cp_valorParceladoActionPerformed
 
     private void bt_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_sairActionPerformed
-        
+
         dispose();
-        
+
     }//GEN-LAST:event_bt_sairActionPerformed
 
     private void bt_calcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_calcularActionPerformed
-        
-        if(cp_avista.isSelected()){
-            lb_informacoesPagamento.setText("Pagamento Avista");
-        }else if(cp_parcelado.isSelected()){
-            lb_informacoesPagamento.setText("Pagamento Parcelado");
-        }else{
+
+        double total = vendas.FrmCaixa.total;
+
+        if (cp_avista.isSelected()) {
+            numeroParcelas = 1;
+            entrada = total;
+            formaPagamento = cp_formaPagamentoAvista.getSelectedItem().toString();
+            String informacao = "AVISTA - "
+                    + "R$: " + total + " | "
+                    + formaPagamento;
+            lb_informacoesPagamento1.setText(informacao);
+            lb_informacoesPagamento2.setText("");
+        } else if (cp_parcelado.isSelected()) {
+            numeroParcelas = Integer.parseInt(cp_numeroParcelas.getSelectedItem().toString());
+            entrada = Double.parseDouble(cp_entrada.getText());
+            double valorParcelado = Double.parseDouble(cp_valorParcelado.getText());
+            formaPagamento = cp_formaPagamentoParcelado.getSelectedItem().toString();
+            double valorParcelas = (total - entrada) / numeroParcelas;
+            String informacao1 = "PARCELADO - "
+                    + "R$: " + total + " | "
+                    + "R$: " + entrada + " + "
+                    + numeroParcelas + "X de "
+                    + "R$: " + valorParcelas;
+            String informacao2 = formaPagamento + " ==> "
+                    + "Troco: R$ " + (valorParcelado - entrada);
+            lb_informacoesPagamento1.setText(informacao1);
+            lb_informacoesPagamento2.setText(informacao2);
+        } else {
             JOptionPane.showMessageDialog(this, "Por favor, informe se o pagamento será AVISTA ou PARCELADO.");
         }
-        
+
     }//GEN-LAST:event_bt_calcularActionPerformed
 
     private void bt_finalizarPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_finalizarPagamentoActionPerformed
-        
+
     }//GEN-LAST:event_bt_finalizarPagamentoActionPerformed
+
+    private void cp_entradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cp_entradaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cp_entradaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -322,20 +369,28 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
     private javax.swing.JButton bt_finalizarPagamento;
     private javax.swing.JButton bt_sair;
     private javax.swing.JRadioButton cp_avista;
+    public static app.bolivia.swing.JCTextField cp_entrada;
+    private org.bolivia.combo.SComboBoxBlue cp_formaPagamentoAvista;
+    private org.bolivia.combo.SComboBoxBlue cp_formaPagamentoParcelado;
+    private org.bolivia.combo.SComboBoxBlue cp_numeroParcelas;
     private javax.swing.JRadioButton cp_parcelado;
-    public static app.bolivia.swing.JCTextField cp_recebido2;
-    public static app.bolivia.swing.JCTextField cp_recebido3;
-    private org.bolivia.combo.SComboBoxBlue cp_tipo1;
-    private org.bolivia.combo.SComboBoxBlue cp_tipo2;
-    private org.bolivia.combo.SComboBoxBlue cp_tipo3;
+    public static app.bolivia.swing.JCTextField cp_valorAvista;
+    public static app.bolivia.swing.JCTextField cp_valorParcelado;
     private javax.swing.ButtonGroup gp_formaPagamento;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JLabel lb_informacoesPagamento;
+    private javax.swing.JLabel lb_informacoesPagamento1;
+    private javax.swing.JLabel lb_informacoesPagamento2;
     // End of variables declaration//GEN-END:variables
+
+    private double entrada;
+    private int numeroParcelas;
+    private String formaPagamento;
+
 }
