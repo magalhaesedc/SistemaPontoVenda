@@ -52,6 +52,12 @@ public class BancoVendas {
             ps.setString(1, v.getNumero_ven());
             ps.setString(2, v.getTotal_ven().replace(",", "."));
             ps.setString(3, v.getData_ven());
+            ps.setString(4, v.getFormaPagamento_ven());
+            ps.setString(5, String.valueOf(v.getParcelas_ven()));
+            ps.setString(6, String.valueOf(v.getParcelasRestantes_ven()));
+            ps.setString(7, String.valueOf(v.getEntrada_ven()));
+            ps.setString(8, String.valueOf(v.getCliente_ven()));
+
             if (ps.executeUpdate() != 0) {
                 resultado = "Registrado com sucesso!";
             } else {

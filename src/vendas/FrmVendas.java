@@ -5,6 +5,7 @@
  */
 package vendas;
 
+import bancodedados.BancoClientes;
 import bancodedados.BancoVendas;
 import controle.ControleMetodos;
 import controle.EstiloTabelaHeader;
@@ -27,10 +28,18 @@ public class FrmVendas extends javax.swing.JInternalFrame {
      */
     public FrmVendas() {
         initComponents();
+        configurarTabela();
+        limparCampos();
+     }
+    
+    private void configurarTabela(){
         tabelaProdutos.getTableHeader().setDefaultRenderer(new EstiloTabelaHeader());
         tabelaProdutos.setDefaultRenderer(Object.class, new EstiloTabelaRenderer());
         tabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        limparCampos();
+        tabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(130);
+        tabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(60);
+        tabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(75);
+        tabelaProdutos.getColumnModel().getColumn(3).setPreferredWidth(200);
     }
 
     void limparCampos() {
@@ -42,20 +51,25 @@ public class FrmVendas extends javax.swing.JInternalFrame {
         preencherTabela(bancoVendas.listarVendas(""));
     }
 
-    private void preencherTabela(ResultSet rs) {
+    private void preencherTabela(ResultSet rsVenda) {
         DefaultTableModel modelo = (DefaultTableModel) FrmVendas.tabelaProdutos.getModel();
 
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
 
-        String dados[] = new String[3];
+        String dados[] = new String[4];
 
         try {
-            while (rs.next()) {
-                dados[0] = rs.getString("numero_ven");
-                dados[1] = rs.getString("total_ven").replace(".", ",");
-                dados[2] = rs.getString("data_ven");
+            while (rsVenda.next()) {
+                dados[0] = rsVenda.getString("numero_ven");
+                dados[1] = rsVenda.getString("total_ven").replace(".", ",");
+                dados[2] = rsVenda.getString("data_ven");
+                
+                ResultSet rsCliente = bancoClientes.buscarCodigo(rsVenda.getString("cod_cliente_ven"));
+                rsCliente.next();
+                dados[3] = rsCliente.getString("nome_cl");
+                
                 modelo.addRow(dados);
             }
         } catch (SQLException ex) {
@@ -260,6 +274,7 @@ public class FrmVendas extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabelaProdutos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane1.setViewportView(tabelaProdutos);
 
         jPanel4.add(jScrollPane1);
@@ -397,5 +412,6 @@ public class FrmVendas extends javax.swing.JInternalFrame {
     public static javax.swing.JTable tabelaProdutos;
     // End of variables declaration//GEN-END:variables
     BancoVendas bancoVendas = new BancoVendas();
+    BancoClientes bancoClientes = new BancoClientes();
     ControleMetodos controleMetodos = new ControleMetodos();
 }

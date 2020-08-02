@@ -19,11 +19,32 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
     public FrmFormaPag() {
         initComponents();
         formaPagamento = null;
-        cp_valorAvista.setText(vendas.FrmCaixa.cp_total.getText());   
+        cp_valorAvista.setText(vendas.FrmCaixa.cp_total.getText());
         //cp_valorAvista.setText("44");   
     }
 
-    public void calcularTabelaCaixa() {
+    private String verificarCampos() {
+
+        if (!cp_avista.isSelected() && !cp_parcelado.isSelected()) {
+            return "Por favor, informe se o pagamento será AVISTA ou PARCELADO.";
+        } else if (cp_formaPagamentoAvista.getSelectedIndex() == 0 && cp_avista.isSelected()) {
+            return "Preencha o campo FORMA DE PAGAMENTO!";
+        } else if (cp_formaPagamentoParcelado.getSelectedIndex() == 0 && cp_parcelado.isSelected()) {
+            return "Preencha o campo FORMA DE PAGAMENTO!";
+        } else if (cp_numeroParcelas.getSelectedIndex() == 0 && cp_parcelado.isSelected()) {
+            return "Preencha o campo PARCELAS!";
+        } else if (cp_valorAvista.getText().isEmpty() && cp_avista.isSelected()) {
+            return "Preencha o campo VALOR!";
+        } else if (cp_valorParcelado.getText().isEmpty() && cp_parcelado.isSelected()) {
+            return "Preencha o campo VALOR!";
+        } else if (cp_entrada.getText().isEmpty() && cp_parcelado.isSelected()) {
+            return "Preencha o campo ENTRADA!";
+        } else {
+            return "";
+        }
+    }
+
+    private void calcularTabelaCaixa() {
         String valorTabelaCaixa;
         String quantidadeTabelaCaixa;
         double total = 0;
@@ -188,7 +209,7 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cp_formaPagamentoAvista.setMaximumRowCount(5);
-        cp_formaPagamentoAvista.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FORMA DE PAGAMENTO", "Cartão de Crédito", "Cartão de Débito" }));
+        cp_formaPagamentoAvista.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FORMA DE PAGAMENTO", "Dinheiro", "Cartão de Crédito", "Cartão de Débito" }));
         cp_formaPagamentoAvista.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         cp_formaPagamentoAvista.setPreferredSize(new java.awt.Dimension(200, 50));
         jPanel4.add(cp_formaPagamentoAvista, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 250, 50));
@@ -248,7 +269,7 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
         jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
 
         cp_numeroParcelas.setMaximumRowCount(5);
-        cp_numeroParcelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PARCELAS", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        cp_numeroParcelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PARCELAS", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
         cp_numeroParcelas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         cp_numeroParcelas.setPreferredSize(new java.awt.Dimension(200, 50));
         jPanel5.add(cp_numeroParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 181, -1));
@@ -325,37 +346,62 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
 
         double total = vendas.FrmCaixa.total;
 
-        if (cp_avista.isSelected()) {
-            numeroParcelas = 1;
-            entrada = total;
-            formaPagamento = cp_formaPagamentoAvista.getSelectedItem().toString();
-            String informacao = "AVISTA - "
-                    + "R$: " + total + " | "
-                    + formaPagamento;
-            lb_informacoesPagamento1.setText(informacao);
-            lb_informacoesPagamento2.setText("");
-        } else if (cp_parcelado.isSelected()) {
-            numeroParcelas = Integer.parseInt(cp_numeroParcelas.getSelectedItem().toString());
-            entrada = Double.parseDouble(cp_entrada.getText());
-            double valorParcelado = Double.parseDouble(cp_valorParcelado.getText());
-            formaPagamento = cp_formaPagamentoParcelado.getSelectedItem().toString();
-            double valorParcelas = (total - entrada) / numeroParcelas;
-            String informacao1 = "PARCELADO - "
-                    + "R$: " + total + " | "
-                    + "R$: " + entrada + " + "
-                    + numeroParcelas + "X de "
-                    + "R$: " + valorParcelas;
-            String informacao2 = formaPagamento + " ==> "
-                    + "Troco: R$ " + (valorParcelado - entrada);
-            lb_informacoesPagamento1.setText(informacao1);
-            lb_informacoesPagamento2.setText(informacao2);
+        if (verificarCampos().isEmpty()) {
+            if (cp_avista.isSelected()) {
+                numeroParcelas = 0;
+                entrada = total;
+                formaPagamento = cp_formaPagamentoAvista.getSelectedItem().toString();
+                String informacao = "AVISTA - "
+                        + "R$: " + total + " | "
+                        + formaPagamento;
+                lb_informacoesPagamento1.setText(informacao);
+                lb_informacoesPagamento2.setText("");
+            } else if (cp_parcelado.isSelected()) {
+                numeroParcelas = Integer.parseInt(cp_numeroParcelas.getSelectedItem().toString());
+                entrada = Double.parseDouble(cp_entrada.getText());
+                double valorParcelado = Double.parseDouble(cp_valorParcelado.getText());
+                formaPagamento = cp_formaPagamentoParcelado.getSelectedItem().toString();
+                double valorParcelas = (total - entrada) / numeroParcelas;
+                String informacao1 = "PARCELADO - "
+                        + "R$: " + total + " | "
+                        + "R$: " + entrada + " + "
+                        + numeroParcelas + "X de "
+                        + "R$: " + valorParcelas;
+                String informacao2 = formaPagamento + " ==> "
+                        + "Troco: R$ " + (valorParcelado - entrada);
+                lb_informacoesPagamento1.setText(informacao1);
+                lb_informacoesPagamento2.setText(informacao2);
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Por favor, informe se o pagamento será AVISTA ou PARCELADO.");
+            JOptionPane.showMessageDialog(null, verificarCampos(), "AVISO", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }//GEN-LAST:event_bt_calcularActionPerformed
 
     private void bt_finalizarPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_finalizarPagamentoActionPerformed
+
+        if (!lb_informacoesPagamento1.getText().equals("Informações do Pagamento")) {
+            if (formaPagamento.equals("Dinheiro") && cp_avista.isSelected()) {
+                vendas.FrmCaixa.cp_recebido.setText(String.format("%.2f", entrada));
+                vendas.FrmCaixa.cp_recebido.setEditable(true);
+                vendas.FrmCaixa.bt_realizarCalculo.setEnabled(true);
+                dispose();
+            } else {
+                vendas.FrmCaixa.cp_recebido.setText("");
+                vendas.FrmCaixa.cp_troco.setText("");
+                vendas.FrmCaixa.cp_recebido.setEditable(false);
+                vendas.FrmCaixa.bt_realizarCalculo.setEnabled(false);
+                
+                vendas.FrmCaixa.parcelas = this.numeroParcelas;
+                vendas.FrmCaixa.formaPagamento = this.formaPagamento;
+                vendas.FrmCaixa.entrada = this.entrada;
+                
+                dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Pressione o botão \"Calcular\" para continuar!", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        }
+
 
     }//GEN-LAST:event_bt_finalizarPagamentoActionPerformed
 

@@ -8,8 +8,10 @@ public class Venda {
     private String data_ven;
     private String formaPagamento_ven;
     private int parcelas_ven;
+    private int parcelasRestantes_ven;
     private double entrada_ven;
-
+    private String cliente_ven;
+    
     public String getNumero_ven() {
         return numero_ven;
     }
@@ -56,6 +58,22 @@ public class Venda {
 
     public void setEntrada_ven(double entrada_ven) {
         this.entrada_ven = entrada_ven;
+    }
+
+    public String getCliente_ven() {
+        return cliente_ven;
+    }
+
+    public void setCliente_ven(String cliente_ven) {
+        this.cliente_ven = cliente_ven;
+    }
+
+    public int getParcelasRestantes_ven() {
+        return parcelasRestantes_ven;
+    }
+
+    public void setParcelasRestantes_ven(int parcelasRestantes_ven) {
+        this.parcelasRestantes_ven = parcelasRestantes_ven;
     }
     
 }

@@ -39,7 +39,6 @@ public class EstiloTabelaHeader implements TableCellRenderer{
         jcomponent.setForeground(Color.WHITE);
         jcomponent.setFont(new Font("Tahoma", Font.BOLD, 12));
         jcomponent.setToolTipText("Colum No. "+(column+1));
-        
         return jcomponent;
     }
     

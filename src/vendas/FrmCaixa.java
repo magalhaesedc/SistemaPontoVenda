@@ -39,7 +39,7 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
         FrmCaixa.tabelaCaixa.getTableHeader().setDefaultRenderer(new EstiloTabelaHeader());
         FrmCaixa.tabelaCaixa.setDefaultRenderer(Object.class, new EstiloTabelaRenderer());
         FrmCaixa.tabelaCaixa.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        codigo = null;
+        codCliente = null;
         parcelas = -1;
         entrada = -1;
         formaPagamento = null;
@@ -71,6 +71,8 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
         }
         cp_recebido.setText("");
         cp_troco.setText("");
+        cp_recebido.setEditable(true);
+        bt_realizarCalculo.setEnabled(true);
         cp_total.setText("0,00");
         cp_clientes.setSelectedIndex(0);
         setarData();
@@ -111,9 +113,9 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
             public void itemStateChanged(ItemEvent ie) {
                 if (cp_clientes.getSelectedItem().toString().contains("- CLI")) {
                     String campo = cp_clientes.getSelectedItem().toString();
-                    codigo = campo.substring((campo.length() - 1) - 6, campo.length());
+                    codCliente = campo.substring((campo.length() - 1) - 6, campo.length());
                 } else {
-                    codigo = null;
+                    codCliente = null;
                 }
             }
         });
@@ -136,7 +138,7 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
             System.err.println("Erro: " + ex);
         }
     }
-
+    
     private double realizarCalculoTroco() {
 
         double valor = -1;
@@ -153,8 +155,8 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Valor recebido não pode ser menor que o valor total");
             } else {
                 valor = recebido - total;
-                parcelas = 1;
-                entrada = valor;
+                parcelas = 0;
+                entrada = recebido - valor;
                 formaPagamento = "Dinheiro";
                 this.cp_troco.setText(String.format("%.2f", valor));
             }
@@ -567,7 +569,7 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
 
         if (tabelaCaixa.getRowCount() < 1) {
             JOptionPane.showMessageDialog(this, "Nenhum produto foi adicionado.", "Erro", JOptionPane.ERROR_MESSAGE);
-        } else if (codigo == null) {
+        } else if (codCliente == null) {
             JOptionPane.showMessageDialog(this, "Selecione um cliente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         } else {
             if (cp_troco.getText().isEmpty() && formaPagamento == null) {
@@ -580,6 +582,17 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
                 v.setParcelas_ven(parcelas);
                 v.setEntrada_ven(entrada);
                 v.setFormaPagamento_ven(formaPagamento);
+                v.setCliente_ven(codCliente);
+                v.setParcelasRestantes_ven(parcelas);
+                
+                System.out.println("Número da Venda: " + v.getNumero_ven());
+                System.out.println("Total: " + v.getTotal_ven());
+                System.out.println("Data: "+ v.getData_ven());
+                System.out.println("Parcelas: " + v.getParcelas_ven());
+                System.out.println("Entrada: " + v.getEntrada_ven());
+                System.out.println("Forma: "  + v.getFormaPagamento_ven());
+                System.out.println("Cliente: "  + v.getCliente_ven());
+                
                 String msg = bancoVendas.registrarVenda(v);
                 if (msg.equals("Registrado com sucesso!")) {
                     limparCampos();
@@ -615,7 +628,7 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
 
         if (tabelaCaixa.getRowCount() < 1) {
             JOptionPane.showMessageDialog(this, "Nenhum produto foi adicionado.", "Erro", JOptionPane.ERROR_MESSAGE);
-        } else if (codigo == null) {
+        } else if (codCliente == null) {
             JOptionPane.showMessageDialog(this, "Selecione um cliente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         } else {
             if (estaFechado(formFormaPag)) {
@@ -639,7 +652,7 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
     private javax.swing.JButton bt_eliminar;
     private javax.swing.JButton bt_pagamento;
     private javax.swing.JButton bt_produtos;
-    private javax.swing.JButton bt_realizarCalculo;
+    public static javax.swing.JButton bt_realizarCalculo;
     private javax.swing.JButton bt_realizarVenda;
     private org.bolivia.combo.SComboBoxBlue cp_clientes;
     private app.bolivia.swing.JCTextField cp_data;
@@ -665,7 +678,7 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
     public static javax.swing.JTable tabelaCaixa;
     // End of variables declaration//GEN-END:variables
 
-    private String codigo;
+    private String codCliente;
     public static int parcelas;
     public static double entrada;
     public static String formaPagamento;
