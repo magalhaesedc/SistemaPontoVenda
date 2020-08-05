@@ -6,10 +6,13 @@
 package vendas;
 
 import bancodedados.BancoClientes;
+import bancodedados.BancoDeposito;
+import bancodedados.BancoProdutos;
 import bancodedados.BancoVendas;
 import controle.ControleMetodos;
 import controle.EstiloTabelaHeader;
 import controle.EstiloTabelaRenderer;
+import deposito.Deposito;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.ResultSet;
@@ -138,7 +141,7 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
             System.err.println("Erro: " + ex);
         }
     }
-    
+
     private double realizarCalculoTroco() {
 
         double valor = -1;
@@ -584,15 +587,25 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
                 v.setFormaPagamento_ven(formaPagamento);
                 v.setCliente_ven(codCliente);
                 v.setParcelasRestantes_ven(parcelas);
-                
+
                 System.out.println("Número da Venda: " + v.getNumero_ven());
                 System.out.println("Total: " + v.getTotal_ven());
-                System.out.println("Data: "+ v.getData_ven());
+                System.out.println("Data: " + v.getData_ven());
                 System.out.println("Parcelas: " + v.getParcelas_ven());
                 System.out.println("Entrada: " + v.getEntrada_ven());
-                System.out.println("Forma: "  + v.getFormaPagamento_ven());
-                System.out.println("Cliente: "  + v.getCliente_ven());
-                
+                System.out.println("Forma: " + v.getFormaPagamento_ven());
+                System.out.println("Cliente: " + v.getCliente_ven());
+
+                for (int i = 0; i < tabelaCaixa.getRowCount(); i++) {
+                    String quantidade = tabelaCaixa.getValueAt(i, 4).toString();
+                    String codigoProduto = tabelaCaixa.getValueAt(i, 0).toString();
+                    Deposito d = new Deposito();
+                    d.setCodigo_produto(codigoProduto);
+                    d.setCodigo_venda(cp_numeroVenda.getText());
+                    d.setQuantidade(quantidade);
+                    bancoDeposito.registrarDeposito(d);
+                }
+
                 String msg = bancoVendas.registrarVenda(v);
                 if (msg.equals("Registrado com sucesso!")) {
                     limparCampos();
@@ -689,4 +702,6 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
     ControleMetodos controleMetodos = new ControleMetodos();
     BancoVendas bancoVendas = new BancoVendas();
     BancoClientes bancoClientes = new BancoClientes();
+    BancoProdutos bancoProdutos = new BancoProdutos();
+    BancoDeposito bancoDeposito = new BancoDeposito();
 }

@@ -30,9 +30,9 @@ public class FrmVendas extends javax.swing.JInternalFrame {
         initComponents();
         configurarTabela();
         limparCampos();
-     }
-    
-    private void configurarTabela(){
+    }
+
+    private void configurarTabela() {
         tabelaProdutos.getTableHeader().setDefaultRenderer(new EstiloTabelaHeader());
         tabelaProdutos.setDefaultRenderer(Object.class, new EstiloTabelaRenderer());
         tabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -65,11 +65,11 @@ public class FrmVendas extends javax.swing.JInternalFrame {
                 dados[0] = rsVenda.getString("numero_ven");
                 dados[1] = rsVenda.getString("total_ven").replace(".", ",");
                 dados[2] = rsVenda.getString("data_ven");
-                
+
                 ResultSet rsCliente = bancoClientes.buscarCodigo(rsVenda.getString("cod_cliente_ven"));
                 rsCliente.next();
                 dados[3] = rsCliente.getString("nome_cl");
-                
+
                 modelo.addRow(dados);
             }
         } catch (SQLException ex) {
@@ -92,7 +92,7 @@ public class FrmVendas extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         bt_pesquisar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        bt_imparCampos = new javax.swing.JButton();
+        bt_abrirVenda = new javax.swing.JButton();
         bt_excluirTudo = new javax.swing.JButton();
         bt_excluir = new javax.swing.JButton();
         bt_imparCampos1 = new javax.swing.JButton();
@@ -146,19 +146,19 @@ public class FrmVendas extends javax.swing.JInternalFrame {
         });
         jPanel2.add(bt_pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, -1, 50));
 
-        bt_imparCampos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        bt_imparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/limpar1.png"))); // NOI18N
-        bt_imparCampos.setText("Limpar Campos");
-        bt_imparCampos.setBorder(null);
-        bt_imparCampos.setContentAreaFilled(false);
-        bt_imparCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bt_imparCampos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        bt_imparCampos.setPreferredSize(new java.awt.Dimension(95, 95));
-        bt_imparCampos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/limpar.png"))); // NOI18N
-        bt_imparCampos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        bt_imparCampos.addActionListener(new java.awt.event.ActionListener() {
+        bt_abrirVenda.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bt_abrirVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/abrirvenda2.png"))); // NOI18N
+        bt_abrirVenda.setText("Abrir Venda");
+        bt_abrirVenda.setBorder(null);
+        bt_abrirVenda.setContentAreaFilled(false);
+        bt_abrirVenda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_abrirVenda.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_abrirVenda.setPreferredSize(new java.awt.Dimension(95, 95));
+        bt_abrirVenda.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/abrirvenda1.png"))); // NOI18N
+        bt_abrirVenda.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bt_abrirVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_imparCamposActionPerformed(evt);
+                bt_abrirVendaActionPerformed(evt);
             }
         });
 
@@ -196,7 +196,7 @@ public class FrmVendas extends javax.swing.JInternalFrame {
 
         bt_imparCampos1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         bt_imparCampos1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/limpar1.png"))); // NOI18N
-        bt_imparCampos1.setText("Abrir Venda");
+        bt_imparCampos1.setText("Limpar Campos");
         bt_imparCampos1.setBorder(null);
         bt_imparCampos1.setContentAreaFilled(false);
         bt_imparCampos1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -220,7 +220,7 @@ public class FrmVendas extends javax.swing.JInternalFrame {
                 .addGap(0, 0, 0)
                 .addComponent(bt_excluirTudo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(bt_imparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bt_abrirVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(bt_imparCampos1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -229,7 +229,7 @@ public class FrmVendas extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(bt_excluirTudo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                    .addComponent(bt_imparCampos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bt_abrirVenda, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bt_excluir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bt_imparCampos1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -320,9 +320,19 @@ public class FrmVendas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cp_buscarActionPerformed
 
-    private void bt_imparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_imparCamposActionPerformed
-        limparCampos();
-    }//GEN-LAST:event_bt_imparCamposActionPerformed
+    private void bt_abrirVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_abrirVendaActionPerformed
+
+        if (tabelaProdutos.getRowCount() > 0) {
+            if (tabelaProdutos.getSelectedRowCount() > 0) {
+                JOptionPane.showMessageDialog(this, "Falta Construir");
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecione um registro na tabela!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Tabela de vendas vazia!\nSelecione um registro na tabela antes de excluir.");
+        }
+
+    }//GEN-LAST:event_bt_abrirVendaActionPerformed
 
     private void cp_buscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cp_buscarKeyReleased
         cp_buscar.setText(cp_buscar.getText().toUpperCase());
@@ -390,15 +400,15 @@ public class FrmVendas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bt_excluirTudoActionPerformed
 
     private void bt_imparCampos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_imparCampos1ActionPerformed
-        // TODO add your handling code here:
+        limparCampos();
     }//GEN-LAST:event_bt_imparCampos1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bp_vendasHoje;
+    private javax.swing.JButton bt_abrirVenda;
     private javax.swing.JButton bt_excluir;
     private javax.swing.JButton bt_excluirTudo;
-    private javax.swing.JButton bt_imparCampos;
     private javax.swing.JButton bt_imparCampos1;
     private javax.swing.JButton bt_pesquisar;
     private app.bolivia.swing.JCTextField cp_buscar;

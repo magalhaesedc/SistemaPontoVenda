@@ -54,6 +54,7 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         cp_tipoProduto.setSelectedItem(tabelaProdutos.getValueAt(linha, 1).toString());
         cp_nome.setText(tabelaProdutos.getValueAt(linha, 2).toString());
         cp_preco.setText(tabelaProdutos.getValueAt(linha, 3).toString());
+        cp_quantidade.setText(tabelaProdutos.getValueAt(linha, 4).toString());
 
     }
 
@@ -83,7 +84,7 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
             modelo.removeRow(0);
         }
 
-        String dados[] = new String[4];
+        String dados[] = new String[5];
 
         try {
             while (rs.next()) {
@@ -91,6 +92,7 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
                 dados[1] = rs.getString("tipo_pro");
                 dados[2] = rs.getString("nome_pro");
                 dados[3] = rs.getString("valor_pro").replace(".", ",");
+                dados[4] = rs.getString("quantidade_pro");
                 modelo.addRow(dados);
             }
         } catch (SQLException ex) {
@@ -151,6 +153,8 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         lb_tipoProduto = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cp_tipoProduto = new org.bolivia.combo.SComboBoxBlue();
+        cp_quantidade = new app.bolivia.swing.JCTextField();
+        jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         bt_excluirTudo = new javax.swing.JButton();
         bt_registrar = new javax.swing.JButton();
@@ -188,7 +192,7 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
                 cp_nomeKeyReleased(evt);
             }
         });
-        jPanel2.add(cp_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 96, 170, 40));
+        jPanel2.add(cp_nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 95, 170, 40));
 
         cp_codigo.setEditable(false);
         cp_codigo.setBackground(new java.awt.Color(34, 102, 145));
@@ -197,7 +201,7 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         cp_codigo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cp_codigo.setOpaque(false);
         cp_codigo.setPlaceholder("CÓDIGO");
-        jPanel2.add(cp_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 36, 170, 40));
+        jPanel2.add(cp_codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 35, 170, 40));
 
         cp_preco.setBackground(new java.awt.Color(34, 102, 145));
         cp_preco.setBorder(null);
@@ -205,26 +209,43 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         cp_preco.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cp_preco.setOpaque(false);
         cp_preco.setPlaceholder("PREÇO");
-        jPanel2.add(cp_preco, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 96, 170, 40));
+        jPanel2.add(cp_preco, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 95, 170, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/codigoL.png"))); // NOI18N
         jLabel1.setOpaque(true);
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/nomeL.png"))); // NOI18N
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
         lb_tipoProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/tipopro.png"))); // NOI18N
         lb_tipoProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel2.add(lb_tipoProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 30, -1, -1));
+        jPanel2.add(lb_tipoProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/precoL.png"))); // NOI18N
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, -1, -1));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, -1, -1));
 
         cp_tipoProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TIPO PRODUTO", "PAPELARIA", "BEBIDAS", "LIMPEZA", "CARNES", "CONGELADOS", "LACTINEOS", "VERDURAS" }));
         cp_tipoProduto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         cp_tipoProduto.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel2.add(cp_tipoProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 181, 50));
+        jPanel2.add(cp_tipoProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 181, 50));
+
+        cp_quantidade.setBackground(new java.awt.Color(34, 102, 145));
+        cp_quantidade.setBorder(null);
+        cp_quantidade.setForeground(new java.awt.Color(255, 255, 255));
+        cp_quantidade.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cp_quantidade.setOpaque(false);
+        cp_quantidade.setPlaceholder("QUANTIDADE");
+        cp_quantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cp_quantidadeActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cp_quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, 120, -1));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/quantidade.png"))); // NOI18N
+        jLabel7.setOpaque(true);
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, -1, -1));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "OPÇÕES", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         jPanel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -354,20 +375,20 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         tabelaProdutos.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "CÓDIGO", "TIPO DE PRODUTO", "NOME DO PRODUTO", "PREÇO"
+                "CÓDIGO", "TIPO DE PRODUTO", "NOME DO PRODUTO", "PREÇO", "QUANTIDADE"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -394,14 +415,12 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,21 +440,21 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 770, Short.MAX_VALUE)
+            .addGap(0, 768, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 4, Short.MAX_VALUE)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 4, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 498, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 10, Short.MAX_VALUE)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(10, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 10, Short.MAX_VALUE)))
+                    .addContainerGap(10, Short.MAX_VALUE)))
         );
 
         pack();
@@ -532,6 +551,10 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         JOptionPane.showMessageDialog(this, msg);
     }//GEN-LAST:event_bt_excluirTudoActionPerformed
 
+    private void cp_quantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cp_quantidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cp_quantidadeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_atualizar;
@@ -543,11 +566,13 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
     private app.bolivia.swing.JCTextField cp_codigo;
     private app.bolivia.swing.JCTextField cp_nome;
     private app.bolivia.swing.JCTextField cp_preco;
+    public static app.bolivia.swing.JCTextField cp_quantidade;
     private org.bolivia.combo.SComboBoxBlue cp_tipoProduto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
