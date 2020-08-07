@@ -38,14 +38,18 @@ public class FrmListaProdutos extends javax.swing.JInternalFrame {
             modelo.removeRow(0);
         }
 
-        String dados[] = new String[4];
+        String dados[] = new String[5];
 
         try {
             while (rs.next()) {
+                
+                if(rs.getString("quantidade_pro").equals("0")) { continue; }
+                
                 dados[0] = rs.getString("codigo_pro");
                 dados[1] = rs.getString("tipo_pro");
                 dados[2] = rs.getString("nome_pro");
                 dados[3] = rs.getString("valor_pro").replace(".", ",");
+                dados[4] = rs.getString("quantidade_pro");
                 modelo.addRow(dados);
             }
         } catch (SQLException ex) {
@@ -189,11 +193,11 @@ public class FrmListaProdutos extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "CÓDIGO", "TIPO DE PRODUTO", "NOME DO PRODUTO", "VALOR"
+                "CÓDIGO", "TIPO DE PRODUTO", "NOME DO PRODUTO", "VALOR", "DISPONÍVEL"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

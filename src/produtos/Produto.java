@@ -7,7 +7,8 @@ public class Produto {
     private String tipo_pro;
     private String nome_pro;
     private String valor_pro;
-
+    private String quantidade_pro;
+    
     /**
      * @return the codigo_pro
      */
@@ -62,6 +63,14 @@ public class Produto {
      */
     public void setValor_pro(String valor_pro) {
         this.valor_pro = valor_pro;
+    }
+
+    public String getQuantidade_pro() {
+        return quantidade_pro;
+    }
+
+    public void setQuantidade_pro(String quantidade_pro) {
+        this.quantidade_pro = quantidade_pro;
     }
     
 }

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import produtos.Produto;
 
 public class BancoProdutos {
@@ -22,13 +24,13 @@ public class BancoProdutos {
             return null;
         }
     }
-    
+
     public boolean verificarExisteRegistro() {
-        
+
         boolean existe = true;
-        
+
         try {
-            if(!listarProdutos("").next()){
+            if (!listarProdutos("").next()) {
                 existe = false;
             }
         } catch (SQLException ex) {
@@ -37,7 +39,7 @@ public class BancoProdutos {
         }
         return existe;
     }
-    
+
     public ResultSet listarProdutos(String busca, String tipo) {
         try {
             String sql = SqlProdutos.listar(busca, tipo);
@@ -90,7 +92,8 @@ public class BancoProdutos {
             ps.setString(1, p.getTipo_pro());
             ps.setString(2, p.getNome_pro().toUpperCase());
             ps.setString(3, p.getValor_pro().replace(",", "."));
-            ps.setString(4, p.getCodigo_pro());
+            ps.setString(4, p.getQuantidade_pro());
+            ps.setString(5, p.getCodigo_pro());
 
             if (ps.executeUpdate() != 0) {
                 resultado = "Atualizado com sucesso!";
@@ -121,11 +124,11 @@ public class BancoProdutos {
         String resultado = null;
         String sql = SqlProdutos.EXCLUIR;
         try {
-            
-            if(!listarProdutos("").next()){
+
+            if (!listarProdutos("").next()) {
                 return "Nenhum produto cadastrado!";
             }
-            
+
             ps = cn.prepareStatement(sql);
             ps.setString(1, codigo);
 
@@ -146,11 +149,11 @@ public class BancoProdutos {
         String resultado = null;
         String sql = SqlProdutos.EXCLUIR_TUDO;
         try {
-            
-            if(!listarProdutos("").next()){
+
+            if (!listarProdutos("").next()) {
                 return "Nenhum produto cadastrado!";
             }
-            
+
             ps = cn.prepareStatement(sql);
             if (ps.executeUpdate() != 0) {
                 resultado = "Todos os registros foram excluidos com sucesso!";

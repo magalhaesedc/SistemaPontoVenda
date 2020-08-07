@@ -10,6 +10,7 @@ import bancodedados.BancoDeposito;
 import bancodedados.BancoProdutos;
 import bancodedados.BancoVendas;
 import controle.ControleMetodos;
+import controle.ControleProduto;
 import controle.EstiloTabelaHeader;
 import controle.EstiloTabelaRenderer;
 import deposito.Deposito;
@@ -595,7 +596,9 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
                 System.out.println("Entrada: " + v.getEntrada_ven());
                 System.out.println("Forma: " + v.getFormaPagamento_ven());
                 System.out.println("Cliente: " + v.getCliente_ven());
-
+                
+                
+                
                 for (int i = 0; i < tabelaCaixa.getRowCount(); i++) {
                     String quantidade = tabelaCaixa.getValueAt(i, 4).toString();
                     String codigoProduto = tabelaCaixa.getValueAt(i, 0).toString();
@@ -603,6 +606,7 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
                     d.setCodigo_produto(codigoProduto);
                     d.setCodigo_venda(cp_numeroVenda.getText());
                     d.setQuantidade(quantidade);
+                    controleProduto.removerQuantidade(codigoProduto, quantidade);
                     bancoDeposito.registrarDeposito(d);
                 }
 
@@ -700,6 +704,7 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
     FrmListaProdutos formListarProdutos;
     FrmFormaPag formFormaPag;
     ControleMetodos controleMetodos = new ControleMetodos();
+    ControleProduto controleProduto = new ControleProduto();
     BancoVendas bancoVendas = new BancoVendas();
     BancoClientes bancoClientes = new BancoClientes();
     BancoProdutos bancoProdutos = new BancoProdutos();

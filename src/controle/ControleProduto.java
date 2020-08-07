@@ -1,6 +1,7 @@
 package controle;
 
 import bancodedados.BancoProdutos;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import produtos.Produto;
 
@@ -42,6 +43,29 @@ public class ControleProduto {
         p.setNome_pro(nome);
         p.setValor_pro(valor);
         return bancoProdutos.atualizarProduto(p);
+    }
+    
+    public String removerQuantidade(String codigo_produto, String quantidade) {
+        try {
+            ResultSet protudoAtual = bancoProdutos.buscarCodigo(codigo_produto);
+            
+            if(protudoAtual.next()){
+                int quantidadeAtual = protudoAtual.getInt("quantidade_pro");
+                int quantidadeRemover = Integer.parseInt(quantidade);
+                Produto p = new Produto();
+                p.setCodigo_pro(protudoAtual.getString("codigo_pro"));
+                p.setNome_pro(protudoAtual.getString("nome_pro"));
+                p.setTipo_pro(protudoAtual.getString("tipo_pro"));
+                p.setValor_pro(protudoAtual.getString("valor_pro"));              
+                p.setQuantidade_pro(String.valueOf(quantidadeAtual - quantidadeRemover));
+                return bancoProdutos.atualizarProduto(p);
+            }else{
+                return null;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
     
 }

@@ -213,11 +213,12 @@
                       <Font name="Tahoma" size="10" style="1"/>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="0">
+                      <Table columnCount="5" rowCount="0">
                         <Column editable="false" title="C&#xd3;DIGO" type="java.lang.Object"/>
                         <Column editable="false" title="TIPO DE PRODUTO" type="java.lang.Object"/>
                         <Column editable="false" title="NOME DO PRODUTO" type="java.lang.Object"/>
                         <Column editable="false" title="VALOR" type="java.lang.Object"/>
+                        <Column editable="false" title="DISPON&#xcd;VEL" type="java.lang.Object"/>
                       </Table>
                     </Property>
                   </Properties>
