@@ -1,2 +1,0 @@
-TextPrompt$Show
-TextPrompt
