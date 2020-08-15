@@ -71,6 +71,7 @@ public class BancoProdutos {
             ps.setString(2, p.getTipo_pro());
             ps.setString(3, p.getNome_pro().toUpperCase());
             ps.setString(4, p.getValor_pro().replace(",", "."));
+            ps.setString(5, p.getQuantidade_pro());
             if (ps.executeUpdate() != 0) {
                 resultado = "Registrado com sucesso!";
             } else {

@@ -94,8 +94,8 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
         bt_sair = new javax.swing.JButton();
         bt_calcular = new javax.swing.JButton();
         bt_finalizarPagamento = new javax.swing.JButton();
-        lb_informacoesPagamento2 = new javax.swing.JLabel();
         lb_informacoesPagamento1 = new javax.swing.JLabel();
+        lb_informacoesPagamento2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         cp_formaPagamentoAvista = new org.bolivia.combo.SComboBoxBlue();
         cp_valorAvista = new app.bolivia.swing.JCTextField();
@@ -112,7 +112,7 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Pagamento");
-        setPreferredSize(new java.awt.Dimension(769, 554));
+        setPreferredSize(new java.awt.Dimension(580, 554));
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "INFORMAÇÕES", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
@@ -174,13 +174,13 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
+                .addGap(37, 37, 37)
                 .addComponent(bt_calcular)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                .addGap(54, 54, 54)
                 .addComponent(bt_finalizarPagamento)
-                .addGap(121, 121, 121)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addComponent(bt_sair)
-                .addGap(81, 81, 81))
+                .addGap(54, 54, 54))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,20 +189,21 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
             .addComponent(bt_sair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 700, 130));
-
-        lb_informacoesPagamento2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        lb_informacoesPagamento2.setForeground(new java.awt.Color(255, 0, 0));
-        lb_informacoesPagamento2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb_informacoesPagamento2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel3.add(lb_informacoesPagamento2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 700, -1));
+        jPanel3.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 510, 130));
 
         lb_informacoesPagamento1.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         lb_informacoesPagamento1.setForeground(new java.awt.Color(255, 0, 0));
         lb_informacoesPagamento1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_informacoesPagamento1.setText("Informações do Pagamento");
         lb_informacoesPagamento1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel3.add(lb_informacoesPagamento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 700, -1));
+        jPanel3.add(lb_informacoesPagamento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 510, -1));
+
+        lb_informacoesPagamento2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        lb_informacoesPagamento2.setForeground(new java.awt.Color(255, 0, 0));
+        lb_informacoesPagamento2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_informacoesPagamento2.setText("Informações do Pagamento");
+        lb_informacoesPagamento2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel3.add(lb_informacoesPagamento2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 510, -1));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "A VISTA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         jPanel4.setPreferredSize(new java.awt.Dimension(735, 142));
@@ -248,7 +249,7 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
         cp_formaPagamentoParcelado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FORMA DE PAGAMENTO", "Dinheiro", "Cartão de Crédito", "Cartão de Débito" }));
         cp_formaPagamentoParcelado.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         cp_formaPagamentoParcelado.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel5.add(cp_formaPagamentoParcelado, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 250, 50));
+        jPanel5.add(cp_formaPagamentoParcelado, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 250, 50));
 
         cp_valorParcelado.setBackground(new java.awt.Color(34, 102, 145));
         cp_valorParcelado.setBorder(null);
@@ -272,7 +273,7 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
         cp_numeroParcelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PARCELAS", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
         cp_numeroParcelas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         cp_numeroParcelas.setPreferredSize(new java.awt.Dimension(200, 50));
-        jPanel5.add(cp_numeroParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 181, -1));
+        jPanel5.add(cp_numeroParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 250, -1));
 
         gp_formaPagamento.add(cp_parcelado);
         cp_parcelado.setContentAreaFilled(false);
@@ -306,10 +307,10 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

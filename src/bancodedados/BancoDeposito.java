@@ -12,9 +12,9 @@ public class BancoDeposito {
     private Connection cn = Conectar.getConexao();
     private PreparedStatement ps;
 
-    public ResultSet listarVendas(String busca) {
+    public ResultSet listarDeposito(String busca) {
         try {
-            String sql = SqlVendas.listar(busca);
+            String sql = SqlDeposito.listar(busca);
             Statement st = cn.createStatement();
             return st.executeQuery(sql);
         } catch (SQLException ex) {
@@ -34,16 +34,6 @@ public class BancoDeposito {
         }
     }
 
-//    public ResultSet buscarCodigo(String codigo) {
-//        try {
-//            String sql = SqlProdutos.buscarCodigo(codigo);
-//            Statement st = cn.createStatement();
-//            return st.executeQuery(sql);
-//        } catch (SQLException ex) {
-//            System.err.println("Erro: " + ex);
-//            return null;
-//        }
-//    }
     public String registrarDeposito(Deposito d) {
         String resultado = null;
         String sql = SqlDeposito.REGISTRAR;
@@ -83,7 +73,7 @@ public class BancoDeposito {
         boolean existe = true;
 
         try {
-            if (!listarVendas("").next()) {
+            if (!listarDeposito("").next()) {
                 existe = false;
             }
         } catch (SQLException ex) {
@@ -97,7 +87,7 @@ public class BancoDeposito {
         String sql = SqlVendas.EXCLUIR;
         try {
 
-            if (!listarVendas("").next()) {
+            if (!listarDeposito("").next()) {
                 return "Nenhuma venda cadastrada!";
             }
 
@@ -122,7 +112,7 @@ public class BancoDeposito {
         String sql = SqlVendas.EXCLUIR_TUDO;
         try {
 
-            if (!listarVendas("").next()) {
+            if (!listarDeposito("").next()) {
                 return "Nenhum produto cadastrado!";
             }
 

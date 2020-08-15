@@ -10,9 +10,9 @@ public class ControleProduto {
     
     BancoProdutos bancoProdutos = new BancoProdutos();
     
-    public String registrarProduto(String codigo, String tipo, String nome, String valor){
+    public String registrarProduto(String codigo, String tipo, String nome, String valor, String quantidade){
         
-        if(codigo.equals("") || nome.equals("") || tipo.equals("TIPO PRODUTO") || valor.equals("")){
+        if(codigo.equals("") || nome.equals("") || tipo.equals("TIPO PRODUTO") || valor.equals("") || quantidade.equals("")){
             return "Preencha todos os dados";
         }
         try {
@@ -28,12 +28,13 @@ public class ControleProduto {
         p.setTipo_pro(tipo);
         p.setNome_pro(nome);
         p.setValor_pro(valor);
+        p.setQuantidade_pro(quantidade);
         return bancoProdutos.registrarProduto(p);
     }
     
-    public String atualizarProduto(String codigo, String tipo, String nome, String valor){
+    public String atualizarProduto(String codigo, String tipo, String nome, String valor, String quantidade){
         
-        if(codigo.equals("") || nome.equals("") || tipo.equals("TIPO PRODUTO") || valor.equals("")){
+        if(codigo.equals("") || nome.equals("") || tipo.equals("TIPO PRODUTO") || valor.equals("") || quantidade.equals("")){
             return "Preencha todos os dados";
         }
 
@@ -42,6 +43,7 @@ public class ControleProduto {
         p.setTipo_pro(tipo);
         p.setNome_pro(nome);
         p.setValor_pro(valor);
+        p.setQuantidade_pro(quantidade);
         return bancoProdutos.atualizarProduto(p);
     }
     

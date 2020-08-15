@@ -13,9 +13,12 @@ import controle.EstiloTabelaRenderer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import static principal.MenuPrincipal.instanciarTelas;
+import produtos.FrmListaProdutos;
 
 /**
  *
@@ -30,6 +33,19 @@ public class FrmVendas extends javax.swing.JInternalFrame {
         initComponents();
         configurarTabela();
         limparCampos();
+    }
+
+    public boolean estaFechado(Object obj) {
+        JInternalFrame[] ativo = principal.MenuPrincipal.instanciarTelas.getAllFrames();
+        boolean fechado = true;
+        int i = 0;
+        while (i < ativo.length && fechado) {
+            if (ativo[i] == obj) {
+                fechado = false;
+            }
+            i++;
+        }
+        return fechado;
     }
 
     private void configurarTabela() {
@@ -104,7 +120,7 @@ public class FrmVendas extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Vendas");
-        setPreferredSize(new java.awt.Dimension(1050, 390));
+        setPreferredSize(new java.awt.Dimension(983, 390));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "OPÇÕES", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -287,8 +303,8 @@ public class FrmVendas extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,7 +340,21 @@ public class FrmVendas extends javax.swing.JInternalFrame {
 
         if (tabelaProdutos.getRowCount() > 0) {
             if (tabelaProdutos.getSelectedRowCount() > 0) {
-                JOptionPane.showMessageDialog(this, "Falta Construir");
+
+                if (estaFechado(formVendaCompleta)) {
+                    formVendaCompleta = new FrmVendaCompleta();
+                    int lDesk = instanciarTelas.getWidth();
+                    int aDesk = instanciarTelas.getHeight();
+                    int lForm = formVendaCompleta.getWidth();
+                    int aForm = formVendaCompleta.getHeight();
+                    instanciarTelas.add(formVendaCompleta).setLocation(lDesk / 2 - lForm / 2, aDesk / 2 - aForm / 2);
+                    formVendaCompleta.show();
+                } else {
+                    JOptionPane.showMessageDialog(this, "A janela já está aberto!!");
+                    formVendaCompleta.toFront();
+                    formVendaCompleta.show();
+                }
+
             } else {
                 JOptionPane.showMessageDialog(this, "Selecione um registro na tabela!");
             }
@@ -421,6 +451,9 @@ public class FrmVendas extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tabelaProdutos;
     // End of variables declaration//GEN-END:variables
+
+    FrmVendaCompleta formVendaCompleta;
+
     BancoVendas bancoVendas = new BancoVendas();
     BancoClientes bancoClientes = new BancoClientes();
     ControleMetodos controleMetodos = new ControleMetodos();

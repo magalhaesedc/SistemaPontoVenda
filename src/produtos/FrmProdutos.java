@@ -17,6 +17,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import static produtos.FrmListaProdutos.isNumber;
 
 /**
  *
@@ -67,6 +68,7 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         cp_nome.setText("");
         cp_preco.setText("");
         cp_buscar.setText("");
+        cp_quantidade.setText("");
 
         preencherTabela(bancoProdutos.listarProdutos(""));
 
@@ -155,6 +157,8 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         cp_tipoProduto = new org.bolivia.combo.SComboBoxBlue();
         cp_quantidade = new app.bolivia.swing.JCTextField();
         jLabel7 = new javax.swing.JLabel();
+        bt_diminuirQuantidade = new javax.swing.JButton();
+        bt_adicionarQuantidade = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         bt_excluirTudo = new javax.swing.JButton();
         bt_registrar = new javax.swing.JButton();
@@ -241,11 +245,41 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
                 cp_quantidadeActionPerformed(evt);
             }
         });
-        jPanel2.add(cp_quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, 120, -1));
+        jPanel2.add(cp_quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, 120, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/quantidade.png"))); // NOI18N
         jLabel7.setOpaque(true);
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, -1, -1));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, -1, -1));
+
+        bt_diminuirQuantidade.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bt_diminuirQuantidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/quantidademenos1.png"))); // NOI18N
+        bt_diminuirQuantidade.setBorder(null);
+        bt_diminuirQuantidade.setContentAreaFilled(false);
+        bt_diminuirQuantidade.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_diminuirQuantidade.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_diminuirQuantidade.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/quantidademenos2.png"))); // NOI18N
+        bt_diminuirQuantidade.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bt_diminuirQuantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_diminuirQuantidadeActionPerformed(evt);
+            }
+        });
+        jPanel2.add(bt_diminuirQuantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 30, -1, -1));
+
+        bt_adicionarQuantidade.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bt_adicionarQuantidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/quantidademais1.png"))); // NOI18N
+        bt_adicionarQuantidade.setBorder(null);
+        bt_adicionarQuantidade.setContentAreaFilled(false);
+        bt_adicionarQuantidade.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_adicionarQuantidade.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_adicionarQuantidade.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos/quantidademais2.png"))); // NOI18N
+        bt_adicionarQuantidade.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bt_adicionarQuantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_adicionarQuantidadeActionPerformed(evt);
+            }
+        });
+        jPanel2.add(bt_adicionarQuantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 30, -1, -1));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "OPÇÕES", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         jPanel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -452,9 +486,9 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
             .addGap(0, 498, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(10, Short.MAX_VALUE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(10, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -479,8 +513,9 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         String tipo = cp_tipoProduto.getSelectedItem().toString();
         String nome = cp_nome.getText();
         String valor = cp_preco.getText();
+        String quantidade = cp_quantidade.getText();
 
-        String msg = controleProdutos.registrarProduto(codigo, tipo, nome, valor);
+        String msg = controleProdutos.registrarProduto(codigo, tipo, nome, valor, quantidade);
         if (msg.equals("Registrado com sucesso!")) {
             limparCampos();
             selecionarLinha(codigo);
@@ -498,12 +533,13 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         String tipo = cp_tipoProduto.getSelectedItem().toString();
         String nome = cp_nome.getText();
         String valor = cp_preco.getText();
+        String quantidade = cp_quantidade.getText();
 
         String msg;
 
         if (tabelaProdutos.getRowCount() > 0) {
             if (tabelaProdutos.getSelectedRow() >= 0) {
-                msg = controleProdutos.atualizarProduto(codigo, tipo, nome, valor);
+                msg = controleProdutos.atualizarProduto(codigo, tipo, nome, valor, quantidade);
             } else {
                 msg = "Nenhum produto selecionado!\nSelecione um produto na tabela abaixo.";
             }
@@ -555,9 +591,83 @@ public class FrmProdutos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cp_quantidadeActionPerformed
 
+    private void bt_diminuirQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_diminuirQuantidadeActionPerformed
+         boolean erroJOptionPane = true;
+        String msgJOptionPane = "Quantidade:";
+        int tipoJOptionPane = JOptionPane.INFORMATION_MESSAGE;
+
+        try {
+
+            int quantidadeAtual = Integer.parseInt(cp_quantidade.getText());
+
+            while (erroJOptionPane) {
+
+                String quantidade = JOptionPane.showInputDialog(this, msgJOptionPane, "Quantidade do Produto", tipoJOptionPane);
+
+                if (quantidade != null) {
+
+                    if (quantidade != null && !quantidade.equals("") && !isNumber(quantidade)) {
+                        msgJOptionPane = "Somente valores númericos maiores que 0:";
+                        tipoJOptionPane = JOptionPane.ERROR_MESSAGE;
+                    } else if (quantidade != null && quantidade.equals("")) {
+                        msgJOptionPane = "Digite um valor numérico maior que 0:";
+                        tipoJOptionPane = JOptionPane.ERROR_MESSAGE;
+                    } else {
+                        erroJOptionPane = false;
+                        int quantidadeAdicionar = Integer.parseInt(quantidade);
+                        cp_quantidade.setText(String.valueOf(quantidadeAtual - quantidadeAdicionar));
+                    }
+
+                }else{
+                    erroJOptionPane = false;
+                }
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(this, "Número inválido no campo QUANTIDADE", "Quantidade do Produto", tipoJOptionPane);
+        }
+    }//GEN-LAST:event_bt_diminuirQuantidadeActionPerformed
+
+    private void bt_adicionarQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_adicionarQuantidadeActionPerformed
+
+        boolean erroJOptionPane = true;
+        String msgJOptionPane = "Quantidade:";
+        int tipoJOptionPane = JOptionPane.INFORMATION_MESSAGE;
+
+        try {
+
+            int quantidadeAtual = Integer.parseInt(cp_quantidade.getText());
+
+            while (erroJOptionPane) {
+
+                String quantidade = JOptionPane.showInputDialog(this, msgJOptionPane, "Quantidade do Produto", tipoJOptionPane);
+
+                if (quantidade != null) {
+
+                    if (quantidade != null && !quantidade.equals("") && !isNumber(quantidade)) {
+                        msgJOptionPane = "Somente valores númericos maiores que 0:";
+                        tipoJOptionPane = JOptionPane.ERROR_MESSAGE;
+                    } else if (quantidade != null && quantidade.equals("")) {
+                        msgJOptionPane = "Digite um valor numérico maior que 0:";
+                        tipoJOptionPane = JOptionPane.ERROR_MESSAGE;
+                    } else {
+                        erroJOptionPane = false;
+                        int quantidadeAdicionar = Integer.parseInt(quantidade);
+                        cp_quantidade.setText(String.valueOf(quantidadeAtual + quantidadeAdicionar));
+                    }
+
+                }else{
+                    erroJOptionPane = false;
+                }
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(this, "Número inválido no campo QUANTIDADE", "Quantidade do Produto", tipoJOptionPane);
+        }
+    }//GEN-LAST:event_bt_adicionarQuantidadeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_adicionarQuantidade;
     private javax.swing.JButton bt_atualizar;
+    private javax.swing.JButton bt_diminuirQuantidade;
     private javax.swing.JButton bt_excluir;
     private javax.swing.JButton bt_excluirTudo;
     private javax.swing.JButton bt_limparCampos;

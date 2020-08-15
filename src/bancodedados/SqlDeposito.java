@@ -3,7 +3,7 @@ package bancodedados;
 public class SqlDeposito {
 
     public static String listar(String busca) {
-        return "SELECT * FROM vendas WHERE numero_ven like '%" + busca + "%' or data_ven like '%" + busca + "%' ORDER BY data_ven";
+        return "SELECT * FROM deposito WHERE codigo_venda= " + busca + " ORDER BY codigo_venda";
     }
     
     public static String listar(String busca, String data) {

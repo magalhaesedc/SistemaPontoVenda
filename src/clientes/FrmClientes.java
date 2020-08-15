@@ -190,7 +190,7 @@ public class FrmClientes extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setTitle("Clientes");
-        setPreferredSize(new java.awt.Dimension(845, 530));
+        setPreferredSize(new java.awt.Dimension(845, 544));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "REGISTRO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         jPanel2.setPreferredSize(new java.awt.Dimension(735, 142));

@@ -14,8 +14,8 @@ public class SqlProdutos {
         return "SELECT * FROM produtos WHERE codigo_pro = '" + codigo + "'";
     }
 
-    public static String REGISTRAR = "INSERT INTO produtos(codigo_pro, tipo_pro, nome_pro, valor_pro) "
-            + "VALUES(?,?,?,?)";
+    public static String REGISTRAR = "INSERT INTO produtos(codigo_pro, tipo_pro, nome_pro, valor_pro, quantidade_pro) "
+            + "VALUES(?,?,?,?,?)";
 
     public static String ATUALIZAR = "UPDATE produtos SET "
             + "tipo_pro=?, "
