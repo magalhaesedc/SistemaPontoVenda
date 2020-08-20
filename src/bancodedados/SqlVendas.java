@@ -11,11 +11,11 @@ public class SqlVendas {
     }
 
     public static String buscarNumero(String numero) {
-        return "SELECT * FROM vendas WHERE numero_ven = '" + numero + "'";
+        return "SELECT * FROM vendas WHERE numero_ven = " + numero;
     }
     
-    public static String REGISTRAR = "INSERT INTO vendas(numero_ven, total_ven, data_ven, fomaPagamento_ven, parcelas_ven, parcelas_restantes_ven, entrada, cod_cliente_ven) "
-            + "VALUES(?,?,?,?,?,?,?,?)";
+    public static String REGISTRAR = "INSERT INTO vendas(numero_ven, total_ven, data_ven, forma_pagamento_ven, entrada, cod_cliente_ven) "
+            + "VALUES(?,?,?,?,?,?)";
     
     public static String EXCLUIR = "DELETE FROM vendas WHERE numero_ven = ?";
     

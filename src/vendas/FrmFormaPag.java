@@ -362,12 +362,12 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
                 entrada = Double.parseDouble(cp_entrada.getText());
                 double valorParcelado = Double.parseDouble(cp_valorParcelado.getText());
                 formaPagamento = cp_formaPagamentoParcelado.getSelectedItem().toString();
-                double valorParcelas = (total - entrada) / numeroParcelas;
+                valorParcela = (total - entrada) / numeroParcelas;
                 String informacao1 = "PARCELADO - "
                         + "R$: " + total + " | "
                         + "R$: " + entrada + " + "
                         + numeroParcelas + "X de "
-                        + "R$: " + valorParcelas;
+                        + "R$: " + valorParcela;
                 String informacao2 = formaPagamento + " ==> "
                         + "Troco: R$ " + (valorParcelado - entrada);
                 lb_informacoesPagamento1.setText(informacao1);
@@ -396,6 +396,7 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
                 vendas.FrmCaixa.parcelas = this.numeroParcelas;
                 vendas.FrmCaixa.formaPagamento = this.formaPagamento;
                 vendas.FrmCaixa.entrada = this.entrada;
+                vendas.FrmCaixa.valorParcela = this.valorParcela;
                 
                 dispose();
             }
@@ -439,5 +440,6 @@ public class FrmFormaPag extends javax.swing.JInternalFrame {
     private double entrada;
     private int numeroParcelas;
     private String formaPagamento;
+    private double valorParcela;
 
 }

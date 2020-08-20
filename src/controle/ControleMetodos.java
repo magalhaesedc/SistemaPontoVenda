@@ -133,6 +133,13 @@ public class ControleMetodos {
     public String converteDataString(Date data) {
         return converteData.format(data);
     }
+    
+    public String mesVencimento(String dataVenda, int numeroParcela){
+        
+        //---- CONSTRUIR ----\\
+        
+        return "18/08/2020";
+    }
 
     public String gerarCodigoUsuario(int numero) {
 

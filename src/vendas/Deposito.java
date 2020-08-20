@@ -1,5 +1,5 @@
 
-package deposito;
+package vendas;
 
 public class Deposito {
     

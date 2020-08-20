@@ -7,13 +7,13 @@ package vendas;
 
 import bancodedados.BancoClientes;
 import bancodedados.BancoDeposito;
+import bancodedados.BancoParcelas;
 import bancodedados.BancoProdutos;
 import bancodedados.BancoVendas;
 import controle.ControleMetodos;
 import controle.ControleProduto;
 import controle.EstiloTabelaHeader;
 import controle.EstiloTabelaRenderer;
-import deposito.Deposito;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.ResultSet;
@@ -579,6 +579,20 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
             if (cp_troco.getText().isEmpty() && formaPagamento == null) {
                 JOptionPane.showMessageDialog(this, "Para continuar, realize o calculo do troco ou registre um pagamento", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             } else {
+                
+                String numeroVenda_cp = cp_numeroVenda.getText();
+                String total_cp = cp_total.getText();
+                String dataVenda_cp = cp_data.getText();
+
+                //--> Venda:
+                Venda v = new Venda();
+                v.setNumero_ven(numeroVenda_cp);
+                v.setTotal_ven(total_cp);
+                v.setData_ven(dataVenda_cp);
+                v.setEntrada_ven(entrada);
+                v.setFormaPagamento_ven(formaPagamento);
+                v.setCliente_ven(codCliente);
+                /*
                 Venda v = new Venda();
                 v.setNumero_ven(cp_numeroVenda.getText());
                 v.setTotal_ven(cp_total.getText());
@@ -588,7 +602,21 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
                 v.setFormaPagamento_ven(formaPagamento);
                 v.setCliente_ven(codCliente);
                 v.setParcelasRestantes_ven(parcelas);
+                */
 
+                //--> Parcelas
+                while(parcelas > 0){
+                        Parcela p = new Parcela();
+                        p.setCodigoVenda(numeroVenda_cp);
+                        p.setNumero(parcelas);
+                        p.setValor(valorParcela);
+                        p.setStatus(0);
+                        p.setDataVencimento(controleMetodos.mesVencimento(dataVenda_cp, parcelas));
+                        p.setDataPagamento("18/08/2020");
+                        bancoParcela.registrarParcela(p);
+                        parcelas--;
+                }
+     
                 System.out.println("Número da Venda: " + v.getNumero_ven());
                 System.out.println("Total: " + v.getTotal_ven());
                 System.out.println("Data: " + v.getData_ven());
@@ -597,15 +625,14 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
                 System.out.println("Forma: " + v.getFormaPagamento_ven());
                 System.out.println("Cliente: " + v.getCliente_ven());
                 
-                
-                
                 for (int i = 0; i < tabelaCaixa.getRowCount(); i++) {
                     String quantidade = tabelaCaixa.getValueAt(i, 4).toString();
                     String codigoProduto = tabelaCaixa.getValueAt(i, 0).toString();
                     Deposito d = new Deposito();
                     d.setCodigo_produto(codigoProduto);
-                    d.setCodigo_venda(cp_numeroVenda.getText());
+                    d.setCodigo_venda(numeroVenda_cp);
                     d.setQuantidade(quantidade);
+                    
                     controleProduto.removerQuantidade(codigoProduto, quantidade);
                     bancoDeposito.registrarDeposito(d);
                 }
@@ -700,6 +727,7 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
     public static double entrada;
     public static String formaPagamento;
     public static double total;
+    public static double valorParcela;
 
     FrmListaProdutos formListarProdutos;
     FrmFormaPag formFormaPag;
@@ -709,4 +737,5 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
     BancoClientes bancoClientes = new BancoClientes();
     BancoProdutos bancoProdutos = new BancoProdutos();
     BancoDeposito bancoDeposito = new BancoDeposito();
+    BancoParcelas bancoParcela = new BancoParcelas();
 }
