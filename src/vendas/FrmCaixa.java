@@ -592,17 +592,6 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
                 v.setEntrada_ven(entrada);
                 v.setFormaPagamento_ven(formaPagamento);
                 v.setCliente_ven(codCliente);
-                /*
-                Venda v = new Venda();
-                v.setNumero_ven(cp_numeroVenda.getText());
-                v.setTotal_ven(cp_total.getText());
-                v.setData_ven(cp_data.getText());
-                v.setParcelas_ven(parcelas);
-                v.setEntrada_ven(entrada);
-                v.setFormaPagamento_ven(formaPagamento);
-                v.setCliente_ven(codCliente);
-                v.setParcelasRestantes_ven(parcelas);
-                */
 
                 //--> Parcelas
                 while(parcelas > 0){
@@ -611,8 +600,8 @@ public class FrmCaixa extends javax.swing.JInternalFrame {
                         p.setNumero(parcelas);
                         p.setValor(valorParcela);
                         p.setStatus(0);
-                        p.setDataVencimento(controleMetodos.mesVencimento(dataVenda_cp, parcelas));
-                        p.setDataPagamento("18/08/2020");
+                        p.setDataVencimento(controleMetodos.gerarMesVencimento(dataVenda_cp, parcelas));
+                        p.setDataPagamento(null);
                         bancoParcela.registrarParcela(p);
                         parcelas--;
                 }

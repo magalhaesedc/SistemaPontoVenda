@@ -28,7 +28,7 @@ public class ControleMetodos {
     SimpleDateFormat converteAno = new SimpleDateFormat("yyyy");
     SimpleDateFormat converteData = new SimpleDateFormat("dd/MM/yyyy");
     String filePathConfigBanco = "config.xml";
-    
+
     public String criptografar(String senha) {
 
         String senhaAux = senha;
@@ -133,12 +133,39 @@ public class ControleMetodos {
     public String converteDataString(Date data) {
         return converteData.format(data);
     }
-    
-    public String mesVencimento(String dataVenda, int numeroParcela){
-        
-        //---- CONSTRUIR ----\\
-        
-        return "18/08/2020";
+
+    public static int calcularMes(int mes) {
+
+        if (mes < 13) {
+            return mes;
+        } else {
+            return calcularMes(mes - 12);
+        }
+    }
+
+    public static int calcularAno(int mes, int ano) {
+
+        if (mes < 13) {
+            return ano;
+        } else {
+            ano++;
+            return calcularAno(mes - 12, ano);
+        }
+
+    }
+
+    public static String gerarMesVencimento(String dataVenda, int numeroParcela) {
+
+        int dia = Integer.parseInt(dataVenda.substring(0, 2));
+        int mes = Integer.parseInt(dataVenda.substring(3, 5));
+        int ano = Integer.parseInt(dataVenda.substring(6));
+
+        mes += numeroParcela;
+
+        int novoMes = calcularMes(mes);
+        int novoAno = calcularAno(mes, ano);
+
+        return String.format("%02d", dia) + "/" + String.format("%02d", novoMes) + "/" + novoAno + "";
     }
 
     public String gerarCodigoUsuario(int numero) {
@@ -161,7 +188,7 @@ public class ControleMetodos {
         return "USU" + num;
 
     }
-    
+
     public String gerarCodigoCliente(int numero) {
 
         String num = null;

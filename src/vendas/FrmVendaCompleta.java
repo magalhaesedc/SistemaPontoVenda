@@ -295,19 +295,19 @@ public class FrmVendaCompleta extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
         bt_registrar1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        bt_registrar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/produto1.png"))); // NOI18N
+        bt_registrar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/parcelas2.png"))); // NOI18N
         bt_registrar1.setBorder(null);
         bt_registrar1.setContentAreaFilled(false);
         bt_registrar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bt_registrar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        bt_registrar1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/produto.png"))); // NOI18N
+        bt_registrar1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/parcelas1.png"))); // NOI18N
         bt_registrar1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         bt_registrar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_registrar1ActionPerformed(evt);
             }
         });
-        jPanel2.add(bt_registrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
+        jPanel2.add(bt_registrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 115, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Cliente:");
