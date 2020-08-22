@@ -49,18 +49,18 @@ public class FrmVendas extends javax.swing.JInternalFrame {
     }
 
     private void configurarTabela() {
-        tabelaProdutos.getTableHeader().setDefaultRenderer(new EstiloTabelaHeader());
-        tabelaProdutos.setDefaultRenderer(Object.class, new EstiloTabelaRenderer());
-        tabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(130);
-        tabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(60);
-        tabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(75);
-        tabelaProdutos.getColumnModel().getColumn(3).setPreferredWidth(200);
+        tabelaVendas.getTableHeader().setDefaultRenderer(new EstiloTabelaHeader());
+        tabelaVendas.setDefaultRenderer(Object.class, new EstiloTabelaRenderer());
+        tabelaVendas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabelaVendas.getColumnModel().getColumn(0).setPreferredWidth(130);
+        tabelaVendas.getColumnModel().getColumn(1).setPreferredWidth(60);
+        tabelaVendas.getColumnModel().getColumn(2).setPreferredWidth(75);
+        tabelaVendas.getColumnModel().getColumn(3).setPreferredWidth(200);
     }
 
     void limparCampos() {
-        if (tabelaProdutos.getSelectedRow() > -1) {
-            tabelaProdutos.removeRowSelectionInterval(tabelaProdutos.getSelectedRow(), tabelaProdutos.getSelectedRow());
+        if (tabelaVendas.getSelectedRow() > -1) {
+            tabelaVendas.removeRowSelectionInterval(tabelaVendas.getSelectedRow(), tabelaVendas.getSelectedRow());
         }
         cp_buscar.setText("");
         cp_data.setDate(null);
@@ -68,7 +68,7 @@ public class FrmVendas extends javax.swing.JInternalFrame {
     }
 
     private void preencherTabela(ResultSet rsVenda) {
-        DefaultTableModel modelo = (DefaultTableModel) FrmVendas.tabelaProdutos.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) FrmVendas.tabelaVendas.getModel();
 
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
@@ -116,7 +116,7 @@ public class FrmVendas extends javax.swing.JInternalFrame {
         bp_vendasHoje = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaProdutos = new javax.swing.JTable();
+        tabelaVendas = new javax.swing.JTable();
 
         setClosable(true);
         setTitle("Vendas");
@@ -273,8 +273,8 @@ public class FrmVendas extends javax.swing.JInternalFrame {
 
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
-        tabelaProdutos.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaVendas.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        tabelaVendas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -290,8 +290,8 @@ public class FrmVendas extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaProdutos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        jScrollPane1.setViewportView(tabelaProdutos);
+        tabelaVendas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jScrollPane1.setViewportView(tabelaVendas);
 
         jPanel4.add(jScrollPane1);
 
@@ -338,8 +338,8 @@ public class FrmVendas extends javax.swing.JInternalFrame {
 
     private void bt_abrirVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_abrirVendaActionPerformed
 
-        if (tabelaProdutos.getRowCount() > 0) {
-            if (tabelaProdutos.getSelectedRowCount() > 0) {
+        if (tabelaVendas.getRowCount() > 0) {
+            if (tabelaVendas.getSelectedRowCount() > 0) {
 
                 if (estaFechado(formVendaCompleta)) {
                     formVendaCompleta = new FrmVendaCompleta();
@@ -396,11 +396,11 @@ public class FrmVendas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_bp_vendasHojeActionPerformed
 
     private void bt_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_excluirActionPerformed
-        if (tabelaProdutos.getRowCount() > 0) {
-            if (tabelaProdutos.getSelectedRowCount() > 0) {
+        if (tabelaVendas.getRowCount() > 0) {
+            if (tabelaVendas.getSelectedRowCount() > 0) {
                 if (JOptionPane.showConfirmDialog(this, "Deseja excluir esta venda?", "Vendas", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                    int linha = tabelaProdutos.getSelectedRow();
-                    String numero = tabelaProdutos.getValueAt(linha, 0).toString();
+                    int linha = tabelaVendas.getSelectedRow();
+                    String numero = tabelaVendas.getValueAt(linha, 0).toString();
                     String msg = bancoVendas.exluirVenda(numero);
 
                     if (msg.equals("A venda foi excluido com sucesso!")) {
@@ -449,7 +449,7 @@ public class FrmVendas extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable tabelaProdutos;
+    public static javax.swing.JTable tabelaVendas;
     // End of variables declaration//GEN-END:variables
 
     FrmVendaCompleta formVendaCompleta;

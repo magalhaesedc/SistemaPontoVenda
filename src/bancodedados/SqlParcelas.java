@@ -3,7 +3,7 @@ package bancodedados;
 public class SqlParcelas {
 
     public static String listar(String busca) {
-        return "SELECT * FROM parcelas WHERE codigo_venda= " + busca + " ORDER BY codigo_venda";
+        return "SELECT * FROM parcelas WHERE codigo_venda= " + busca + " ORDER BY numero";
     }
 
     public static String listar(String busca, String data) {

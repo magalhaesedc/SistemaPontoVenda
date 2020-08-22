@@ -8,7 +8,6 @@ package vendas;
 import bancodedados.BancoClientes;
 import bancodedados.BancoDeposito;
 import bancodedados.BancoParcelas;
-import produtos.*;
 import bancodedados.BancoProdutos;
 import bancodedados.BancoVendas;
 import controle.ControleMetodos;
@@ -16,7 +15,6 @@ import controle.ControleProduto;
 import controle.EstiloTabelaHeader;
 import controle.EstiloTabelaRenderer;
 import java.awt.Color;
-import java.awt.color.ColorSpace;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -27,7 +25,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import static produtos.FrmListaProdutos.isNumber;
+import static principal.MenuPrincipal.instanciarTelas;
 
 /**
  *
@@ -39,10 +37,24 @@ public class FrmVendaCompleta extends javax.swing.JInternalFrame {
      * Creates new form FrmProdutos
      */
     public FrmVendaCompleta() {
+
         initComponents();
         dadosTabela();
         limparCampos();
         preencherDados();
+    }
+
+    public boolean estaFechado(Object obj) {
+        JInternalFrame[] ativo = principal.MenuPrincipal.instanciarTelas.getAllFrames();
+        boolean fechado = true;
+        int i = 0;
+        while (i < ativo.length && fechado) {
+            if (ativo[i] == obj) {
+                fechado = false;
+            }
+            i++;
+        }
+        return fechado;
     }
 
     private void preencherDados() {
@@ -70,7 +82,7 @@ public class FrmVendaCompleta extends javax.swing.JInternalFrame {
 
             if (valorPendente == null || valorPendente.equals("0")) {
                 lb_status.setText("PAGO");
-                lb_status.setForeground(new Color(0,153,0));
+                lb_status.setForeground(new Color(0, 153, 0));
             } else {
                 lb_status.setText("PENDENTE");
                 lb_status.setForeground(Color.RED);
@@ -86,11 +98,15 @@ public class FrmVendaCompleta extends javax.swing.JInternalFrame {
                 lb_quantidadeParcelas.setText("AVISTA");
                 lb_quantidadeParcelasPagas.setText("AVISTA");
                 lb_quantidadeParcelasPendentes.setText("AVISTA");
+                bt_parcelas.setEnabled(false);
             } else {
                 lb_quantidadeParcelas.setText(quantidadeParcelas);
                 lb_quantidadeParcelasPagas.setText(parcelasPagas);
                 lb_quantidadeParcelasPendentes.setText(parcelasPendente);
+                bt_parcelas.setEnabled(true);
             }
+
+            setCodigoVendaPublico(codigo_venda);
 
         } catch (SQLException ex) {
             Logger.getLogger(FrmVendaCompleta.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,6 +114,14 @@ public class FrmVendaCompleta extends javax.swing.JInternalFrame {
     }
 
     private void dadosTabela() {
+
+        tabelaProdutos.getColumnModel().getColumn(0).setPreferredWidth(75);
+        tabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(127);
+        tabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(135);
+        tabelaProdutos.getColumnModel().getColumn(3).setPreferredWidth(60);
+        tabelaProdutos.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tabelaProdutos.getColumnModel().getColumn(5).setPreferredWidth(60);
+
         tabelaProdutos.getTableHeader().setDefaultRenderer(new EstiloTabelaHeader());
         tabelaProdutos.setDefaultRenderer(Object.class, new EstiloTabelaRenderer());
         tabelaProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -201,7 +225,7 @@ public class FrmVendaCompleta extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        bt_registrar1 = new javax.swing.JButton();
+        bt_parcelas = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         lb_nomeCliente = new javax.swing.JLabel();
         lb_dataVenda = new javax.swing.JLabel();
@@ -242,6 +266,7 @@ public class FrmVendaCompleta extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabelaProdutos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane1.setViewportView(tabelaProdutos);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -294,20 +319,20 @@ public class FrmVendaCompleta extends javax.swing.JInternalFrame {
         jLabel14.setText("Forma de Pagamento:");
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
-        bt_registrar1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        bt_registrar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/parcelas2.png"))); // NOI18N
-        bt_registrar1.setBorder(null);
-        bt_registrar1.setContentAreaFilled(false);
-        bt_registrar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bt_registrar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        bt_registrar1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/parcelas1.png"))); // NOI18N
-        bt_registrar1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        bt_registrar1.addActionListener(new java.awt.event.ActionListener() {
+        bt_parcelas.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        bt_parcelas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/parcelas2.png"))); // NOI18N
+        bt_parcelas.setBorder(null);
+        bt_parcelas.setContentAreaFilled(false);
+        bt_parcelas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bt_parcelas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bt_parcelas.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/vendas/parcelas1.png"))); // NOI18N
+        bt_parcelas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bt_parcelas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_registrar1ActionPerformed(evt);
+                bt_parcelasActionPerformed(evt);
             }
         });
-        jPanel2.add(bt_registrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 115, -1, -1));
+        jPanel2.add(bt_parcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 115, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Cliente:");
@@ -390,10 +415,10 @@ public class FrmVendaCompleta extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(197, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(197, 197, 197)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -404,12 +429,24 @@ public class FrmVendaCompleta extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bt_registrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_registrar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bt_registrar1ActionPerformed
+    private void bt_parcelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_parcelasActionPerformed
+        if (estaFechado(formParcelas)) {
+            formParcelas = new FrmParcelas();
+            int lDesk = instanciarTelas.getWidth();
+            int aDesk = instanciarTelas.getHeight();
+            int lForm = formParcelas.getWidth();
+            int aForm = formParcelas.getHeight();
+            instanciarTelas.add(formParcelas).setLocation(lDesk / 2 - lForm / 2, aDesk / 2 - aForm / 2);
+            formParcelas.show();
+        } else {
+            JOptionPane.showMessageDialog(this, "A janela já está aberto!!");
+            formParcelas.toFront();
+            formParcelas.show();
+        }
+    }//GEN-LAST:event_bt_parcelasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_registrar1;
+    private javax.swing.JButton bt_parcelas;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -445,9 +482,11 @@ public class FrmVendaCompleta extends javax.swing.JInternalFrame {
     ControleMetodos controleMetodos = new ControleMetodos();
     ControleProduto controleProdutos = new ControleProduto();
 
-    private int linha = vendas.FrmVendas.tabelaProdutos.getSelectedRow();
+    FrmParcelas formParcelas;
+
+    private int linha = vendas.FrmVendas.tabelaVendas.getSelectedRow();
     private int coluna = 0;
-    private String codigo_venda = vendas.FrmVendas.tabelaProdutos.getValueAt(linha, coluna).toString();
+    public String codigo_venda = vendas.FrmVendas.tabelaVendas.getValueAt(linha, coluna).toString();
     private String nomeCliente;
     private String dataVenda;
     private String formaPagamento;
@@ -458,5 +497,15 @@ public class FrmVendaCompleta extends javax.swing.JInternalFrame {
     private String parcelasPendente = bancoParcelas.quantidadeParcelasPendentes(codigo_venda);
     private String parcelasPagas = bancoParcelas.quantidadeParcelasPagas(codigo_venda);
     private String valorPendente = bancoParcelas.valorPendente(codigo_venda);
+
+    private static String codigoVendaPublico;
+
+    public static String getCodigoVendaPublico() {
+        return codigoVendaPublico;
+    }
+
+    public static void setCodigoVendaPublico(String aCodigoVendaPublico) {
+        codigoVendaPublico = aCodigoVendaPublico;
+    }
 
 }
