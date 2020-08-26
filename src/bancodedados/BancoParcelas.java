@@ -23,17 +23,28 @@ public class BancoParcelas {
         }
     }
 
-    public ResultSet listarVendas(String busca, String data) {
+    public String pagar(String dataPagamento, String codigoVenda, String dataVencimento) {
+        String resultado = null;
+        String sql = SqlParcelas.PAGAR;
         try {
-            String sql = SqlVendas.listar(busca, data);
-            Statement st = cn.createStatement();
-            return st.executeQuery(sql);
+            ps = cn.prepareStatement(sql);
+            ps.setString(1, dataPagamento);
+            ps.setString(2, codigoVenda);
+            ps.setString(3, dataVencimento);
+
+            if (ps.executeUpdate() != 0) {
+                resultado = "Pago com sucesso!";
+            } else {
+                resultado = "Erro ao realizar o registro!";
+            }
         } catch (SQLException ex) {
-            System.err.println("Erro: " + ex);
-            return null;
+            ex.printStackTrace();
+            resultado = "Erro ao realizar o registro!";
         }
+        System.out.println(sql);
+        return resultado;
     }
-    
+
     public String quantidadeTotalParcelas(String codigo_venda) {
         try {
             String sql = SqlParcelas.quantidadeTotalParcelas(codigo_venda);
@@ -46,7 +57,7 @@ public class BancoParcelas {
             return null;
         }
     }
-    
+
     public String quantidadeParcelasPagas(String codigo_venda) {
         try {
             String sql = SqlParcelas.quantidadeParcelasPagas(codigo_venda);
@@ -59,7 +70,7 @@ public class BancoParcelas {
             return null;
         }
     }
-    
+
     public String quantidadeParcelasPendentes(String codigo_venda) {
         try {
             String sql = SqlParcelas.quantidadeParcelasPendentes(codigo_venda);
@@ -72,7 +83,7 @@ public class BancoParcelas {
             return null;
         }
     }
-    
+
     public String valorPendente(String codigo_venda) {
         try {
             String sql = SqlParcelas.valorPendente(codigo_venda);

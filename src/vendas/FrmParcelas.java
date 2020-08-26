@@ -12,8 +12,9 @@ import controle.EstiloTabelaHeader;
 import controle.EstiloTabelaRenderer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,20 +30,6 @@ public class FrmParcelas extends javax.swing.JInternalFrame {
     public FrmParcelas() {
         initComponents();
         configurarTabela();
-        limparCampos();
-    }
-
-    public boolean estaFechado(Object obj) {
-        JInternalFrame[] ativo = principal.MenuPrincipal.instanciarTelas.getAllFrames();
-        boolean fechado = true;
-        int i = 0;
-        while (i < ativo.length && fechado) {
-            if (ativo[i] == obj) {
-                fechado = false;
-            }
-            i++;
-        }
-        return fechado;
     }
 
     private void configurarTabela() {
@@ -54,12 +41,6 @@ public class FrmParcelas extends javax.swing.JInternalFrame {
         tabelaParcelas.getColumnModel().getColumn(2).setPreferredWidth(100);
         tabelaParcelas.getColumnModel().getColumn(3).setPreferredWidth(100);
         tabelaParcelas.getColumnModel().getColumn(4).setPreferredWidth(120);
-    }
-
-    void limparCampos() {
-        if (tabelaParcelas.getSelectedRow() > -1) {
-            tabelaParcelas.removeRowSelectionInterval(tabelaParcelas.getSelectedRow(), tabelaParcelas.getSelectedRow());
-        }
         preencherTabela(bancoParcelas.listarParcelas(vendas.FrmVendaCompleta.getCodigoVendaPublico()));
     }
 
@@ -78,13 +59,13 @@ public class FrmParcelas extends javax.swing.JInternalFrame {
                 dados[1] = rsVenda.getString("valor").replace(".", ",");
                 dados[2] = rsVenda.getString("data_vencimento");
                 dados[3] = rsVenda.getString("data_pagamento");
-                
-                if(rsVenda.getString("status").equals("1")){
+
+                if (rsVenda.getString("status").equals("1")) {
                     dados[4] = "PAGO";
-                }else{
+                } else {
                     dados[4] = "PENDENTE";
                 }
-                
+
                 modelo.addRow(dados);
             }
         } catch (SQLException ex) {
@@ -183,8 +164,27 @@ public class FrmParcelas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bp_vendasHojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bp_vendasHojeActionPerformed
-        String data = controleMetodos.converteDataString(new Date());
-        preencherTabela(bancoParcelas.listarParcelas(data));
+        if (tabelaParcelas.getRowCount() > 0) {
+            if (tabelaParcelas.getSelectedRowCount() > 0) {
+                int linha = tabelaParcelas.getSelectedRow();
+                int coluna = 3;
+                if (tabelaParcelas.getValueAt(linha, coluna) == null) {
+                    coluna = 2;
+                    String dataVencimento = tabelaParcelas.getValueAt(linha, coluna).toString();
+                    String dataPagamento = converterData.format(new Date());
+                    String codigoVenda = vendas.FrmVendaCompleta.getCodigoVendaPublico();
+                    String msg = bancoParcelas.pagar(dataPagamento, codigoVenda, dataVencimento);
+                    JOptionPane.showMessageDialog(this, msg);
+                    preencherTabela(bancoParcelas.listarParcelas(codigoVenda));
+                } else {
+                    JOptionPane.showMessageDialog(this, "Parcela já está paga.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecione um registro na tabela!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Tabela de vendas vazia!\nSelecione um registro na tabela antes de excluir.");
+        }
     }//GEN-LAST:event_bp_vendasHojeActionPerformed
 
 
@@ -196,13 +196,8 @@ public class FrmParcelas extends javax.swing.JInternalFrame {
     public static javax.swing.JTable tabelaParcelas;
     // End of variables declaration//GEN-END:variables
 
-    FrmVendaCompleta formVendaCompleta;
-    
-    private int linha = vendas.FrmVendas.tabelaVendas.getSelectedRow();
-    private int coluna = 0;
-    public String codigo_venda = vendas.FrmVendas.tabelaVendas.getValueAt(linha, coluna).toString();
-    
     BancoParcelas bancoParcelas = new BancoParcelas();
     BancoClientes bancoClientes = new BancoClientes();
     ControleMetodos controleMetodos = new ControleMetodos();
+    SimpleDateFormat converterData = new SimpleDateFormat("dd/MM/yyyy");
 }
